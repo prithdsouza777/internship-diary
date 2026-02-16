@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "obsidian": {
+      "command": "npx",
+      "args": ["-y", "obsidian-mcp"],
+      "env": {}
+    }
+  },
+  "tools": {
+    "shell": {
+      "enableInteractiveShell": false,
+      "showColor": true
+    }
+  },
+  "skills": {
+    "enabled": true
+  }
+}
