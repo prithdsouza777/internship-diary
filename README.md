@@ -24,8 +24,17 @@ An AI-powered internship diary automation system that generates structured daily
 git clone <repo-url>
 cd "Internship Project"
 
-# Install Python dependencies
-pip install selenium python-dotenv
+# Create and activate a virtual environment
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+
+# macOS/Linux
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
 ### Credentials
@@ -91,6 +100,8 @@ Internship Project/
 ├── Internship_Diary.md      # Main diary file (source of truth)
 ├── .env.example             # Credential template (copy to .env)
 ├── .env                     # Your credentials (git-ignored)
+├── .venv/                   # Virtual environment (git-ignored)
+├── requirements.txt         # Python dependencies
 ├── CLAUDE.md                # Claude Code orchestrator config
 └── GEMINI.md                # Gemini CLI orchestrator config
 ```

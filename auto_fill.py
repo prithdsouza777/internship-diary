@@ -1,4 +1,6 @@
 import time
+import os
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -7,6 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import diary_manager
 from selenium.webdriver.support.ui import Select
 from datetime import date
+
+load_dotenv()
 
 def clean_text(text):
     """Removes bullet points and formatting like * or - or ** from the text."""
@@ -30,23 +34,29 @@ def clean_text(text):
 # --- CONFIGURATION ---
 URL = "https://vtu.internyet.in/dashboard/student/create-diary-entry"
 DIARY_FILE = "Internship_Diary.md"
-PASSWORD = "Pritham1*" 
+EMAIL = os.getenv("VTU_EMAIL")
+PASSWORD = os.getenv("VTU_PASSWORD")
 
 def main():
+    if not EMAIL or not PASSWORD:
+        print("Error: VTU_EMAIL and VTU_PASSWORD must be set in .env file.")
+        print("Copy .env.example to .env and fill in your credentials.")
+        return
+
     # 1. Parse Data
     print("Reading diary entries...")
     entries = diary_manager.get_all_entries(DIARY_FILE)
-    
+
     if not entries:
         print("Error: No entries found in diary.")
         return
 
-    # User requested to ignore Wednesday entry for now. 
+    # User requested to ignore Wednesday entry for now.
     # We will pick the latest one, but if the file hasn't been saved/updated, it might be the Tuesday one.
-    # To be safe, we just take the last one as per standard operation, 
+    # To be safe, we just take the last one as per standard operation,
     # assuming the user controls the file content.
     entry_data = entries[-1]
-    
+
     print(f"\nAuto-selecting latest entry: {entry_data['date']}")
     print("-" * 20)
 
@@ -75,22 +85,22 @@ def main():
             # Email: <input ... autocomplete="email" ...>
             # Password: <input ... name="password" ...>
             # Button: <button ... type="submit">Sign In</button>
-            
+
             print("Looking for email field...")
             email_field = WebDriverWait(driver, 15).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, "input[autocomplete='email']"))
             )
             email_field.clear()
-            email_field.send_keys("22i45.pritham@sjec.ac.in")
+            email_field.send_keys(EMAIL)
             print("Auto-filled Email.")
-            
+
             if PASSWORD:
                 print("Looking for password field...")
                 password_field = driver.find_element(By.NAME, "password")
                 password_field.clear()
                 password_field.send_keys(PASSWORD)
                 print("Auto-filled Password.")
-                
+
                 # Attempt to find and Click Login Button
                 print("Attempting to click Login button...")
                 try:
@@ -112,8 +122,8 @@ def main():
         print("Waiting for Dashboard/Sidebar...")
         try:
             # Wait for URL to change or sidebar to appear
-            time.sleep(3) 
-            
+            time.sleep(3)
+
             # Click "Internship Diary" in sidebar
             print("Navigating to 'Internship Diary'...")
             sidebar_link = WebDriverWait(driver, 10).until(
@@ -121,12 +131,12 @@ def main():
             )
             sidebar_link.click()
             print("Clicked 'Internship Diary'.")
-            
+
             # If it's a menu that expands, we might need to click a sub-item.
             # Assuming it goes straight to the page or we need to click "Create Entry"
             # Let's wait a bit to see if we are on the form.
             time.sleep(2)
-            
+
         except Exception as e:
             print(f"Navigation failed: {e}")
             print("Please navigate manually to the 'Create Diary Entry' page.")
@@ -135,7 +145,7 @@ def main():
         # input("Press Enter to continue...")
 
         # --- FORM SELECTION LOGIC ---
-        
+
         # 5. Select 'Cirrus labs' (Project Selection)
         print("Attempting to select 'Cirrus labs'...")
         try:
@@ -146,7 +156,7 @@ def main():
                 EC.element_to_be_clickable((By.ID, "internship_id"))
             )
             project_trigger.click()
-            
+
             # 2. Wait for option to appear and click it
             print("Waiting for 'Cirruslabs' option...")
             # Look for div/span with text inside the dropdown portal
@@ -155,7 +165,7 @@ def main():
             )
             cirrus_option.click()
             print("Selected 'Cirrus labs'.")
-            
+
         except Exception as e:
             print(f"Could not select 'Cirrus labs': {e}")
             print("Please select Project manually.")
@@ -183,11 +193,11 @@ def main():
             # 2. Select Today
             print("Selecting today in calendar...")
             day_num = str(date.today().day)
-            
+
             try:
                 # Wait for the popover/calendar to appear
-                time.sleep(1) 
-                
+                time.sleep(1)
+
                 # Try finding a button with the exact text of the day number
                 # This is common in Shadcn/Radix calendars (e.g. <button ...>4</button>)
                 day_btn = WebDriverWait(driver, 3).until(
@@ -195,7 +205,7 @@ def main():
                 )
                 day_btn.click()
                 print(f"Clicked day '{day_num}'.")
-                    
+
             except Exception as e:
                 print(f"Could not click day '{day_num}' in calendar: {e}")
                 print("Trying method 2: aria-current='date'...")
@@ -214,7 +224,7 @@ def main():
         print("Attempting to click 'Continue'...")
         try:
             # Wait for button to be enabled
-            time.sleep(1.0) 
+            time.sleep(1.0)
             continue_btn = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Continue') and @type='submit']"))
             )
@@ -260,12 +270,12 @@ def main():
             blockers_text = clean_text(entry_data.get('blockers', ''))
             # Check if empty string or just whitespace, or specific "none" phrases
             normalized_blockers = blockers_text.strip().lower()
-            if (not normalized_blockers or 
-                normalized_blockers == "none" or 
-                "none recorded" in normalized_blockers or 
+            if (not normalized_blockers or
+                normalized_blockers == "none" or
+                "none recorded" in normalized_blockers or
                 "none reported" in normalized_blockers):
                 blockers_text = "None"
-            
+
             blockers_field = driver.find_element(By.NAME, "blockers")
             blockers_field.clear()
             blockers_field.send_keys(blockers_text)
@@ -279,7 +289,7 @@ def main():
 
         print("-" * 20)
         print("Done! Form is filled. Please review and hit Submit.")
-        
+
         # Keep browser open for user to review
         input("Press Enter to close browser...")
 
