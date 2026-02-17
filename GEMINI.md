@@ -56,7 +56,7 @@ This skill generates a full formatted diary entry from the user's raw notes and 
 
 This skill stages ONLY `Internship_Diary.md`, commits with the date as the message, and pushes to `origin main`.
 - Commit message = the date header (e.g., `Monday, February 16th, 2026`)
-- Do NOT stage any other files
+- **STRICT: Do NOT stage any other files** — not context files, not CLAUDE.md, not GEMINI.md, not auto_fill.py, not agent/skill files. Even if other files were modified during this session, only `Internship_Diary.md` goes into the commit.
 
 ### Step 4 — Activate `obsidian-sync` skill
 

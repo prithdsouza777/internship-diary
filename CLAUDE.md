@@ -70,7 +70,7 @@ Spawn ALL FOUR of these Task tool calls in a **single message** so they run in p
 
 #### 1. Git Push (`git-push`)
 - **subagent_type:** `git-push`
-- **prompt:** "Stage ONLY `Internship_Diary.md` (nothing else), commit with the date as the message (e.g., `Monday, February 16th, 2026`), and push to origin main. Working directory: `C:\Users\prith\Downloads\Internship Project`. The entry date is [DATE]. Do NOT stage any other files. Do NOT add anything to the commit message beyond the date."
+- **prompt:** "Stage ONLY `Internship_Diary.md` — absolutely NO other files (not context files, not CLAUDE.md, not agent files, not auto_fill.py, nothing else). Commit with the date as the message (e.g., `Monday, February 16th, 2026`), and push to origin main. Working directory: `C:\Users\prith\Downloads\Internship Project`. The entry date is [DATE]. Even if other files were modified during this session, do NOT stage them. Only `Internship_Diary.md`."
 
 #### 2. Obsidian Sync (`obsidian-sync`)
 - **subagent_type:** `obsidian-sync`
