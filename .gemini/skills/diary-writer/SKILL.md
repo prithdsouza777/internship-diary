@@ -15,9 +15,9 @@ Every entry MUST follow this exact structure:
 ## [Day of Week], [Month] [Day with ordinal], [Year]
 
 ### What I worked on?
-- **[Bold Topic]:** Detailed description of the specific task or activity.
-- **[Bold Topic]:** Another detailed point about the work done.
-- **[Bold Topic]:** A third detailed point breaking down the work further.
+- **[Bold Topic]:** Short, concise one-line description of the task.
+- **[Bold Topic]:** Another concise point about the work done.
+- **[Bold Topic]:** A third concise point.
 
 ### Learnings / Outcomes
 - [What was learned or shipped — be specific, tie to the work done]
@@ -33,9 +33,27 @@ Every entry MUST follow this exact structure:
 ## Expansion Rules
 
 **This is the most important rule:** The user may give you just ONE LINE like "worked on docker". You MUST expand this into:
-- **At least 3 detailed bullet points** under "What I worked on?" — break the work into specific sub-tasks, components, or steps
+- **At least 3 bullet points** under "What I worked on?" — break the work into specific sub-tasks or components
 - **At least 2 bullet points** under "Learnings / Outcomes"
 - Relevant, specific skills (not generic ones)
+
+## BREVITY RULE — Critical
+
+**Keep bullet points SHORT and CONCISE.** Each bullet should be ONE line — a brief description, not a paragraph. Do NOT over-elaborate or pad with unnecessary detail.
+
+**BAD (too verbose):**
+- **Container Registry Push:** Successfully pushed the Docker image to Google Container Registry (GCR) after authenticating with the service account credentials and tagging the image with the appropriate project ID and version.
+
+**GOOD (concise):**
+- **Container Registry Push:** Successfully pushed the Docker image to Google Container Registry (GCR).
+
+**BAD (too verbose):**
+- **Cloud Run Service Configuration:** Deployed the backend server image to Google Cloud Run, configuring the service with necessary environment variables, allocated memory (2GB), CPU resources, and setting up the HTTPS endpoint with automatic scaling.
+
+**GOOD (concise):**
+- **Cloud Run Service Configuration:** Deployed the backend server image to Google Cloud Run, configuring the service with necessary environment variables.
+
+Apply the same brevity to Learnings/Outcomes. One sentence per bullet, no fluff.
 
 Use the **project context** (`context/project_context.md`) and **previous entries** to infer realistic, plausible details. The project is an AI Scrum call automation system for Microsoft Teams using Azure Bot Service, Python, AWS Polly, etc.
 

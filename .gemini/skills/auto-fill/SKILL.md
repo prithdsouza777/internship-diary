@@ -40,5 +40,5 @@ Do NOT pipe input (e.g., `echo "" |`). The script uses Chrome's `detach` option 
 ## Error Handling
 
 - If the script fails, report the exact error output
-- Common issues: Chrome not installed, WebDriver mismatch, portal URL changed
+- Common issues: Chrome not installed, WebDriver mismatch, portal URL changed, already logged out
 - Do NOT retry automatically — report the failure and let the user decide
