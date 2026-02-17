@@ -24,10 +24,10 @@ Your sole job is to execute the `auto_fill.py` Selenium script that fills the VT
 
 Execute this shell command:
 ```bash
-cd "C:\Users\prith\Downloads\Internship Project" && echo "" | python auto_fill.py
+cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py
 ```
 
-The `echo "" |` pipes empty input to handle the `input("Press Enter to close browser...")` prompt at the end of the script so it doesn't block.
+Do NOT pipe input (e.g., `echo "" |`). The script uses Chrome's `detach` option so the browser **stays open** after the script finishes. The user needs to review the filled form and click Submit manually. The browser must NOT be closed by the script or the agent.
 
 ## Important Notes
 

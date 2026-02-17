@@ -24,10 +24,10 @@ You are a VTU Portal Auto-Fill specialist. Your sole job is to execute the `auto
 
 Execute this command:
 ```bash
-cd "C:\Users\prith\Downloads\Internship Project" && echo "" | python auto_fill.py
+cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py
 ```
 
-The `echo "" |` pipes empty input to handle the `input("Press Enter to close browser...")` prompt at the end of the script, so it doesn't block indefinitely.
+Do NOT pipe input (e.g., `echo "" |`). The script handles non-interactive mode automatically — when it detects an EOFError (no terminal input available), it leaves the browser **open** so the user can review the form and click Submit manually. The browser must NOT be closed by the script or the agent.
 
 ## Important Notes
 

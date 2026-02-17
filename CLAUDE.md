@@ -88,7 +88,7 @@ Spawn ALL FOUR of these Task tool calls in a **single message** so they run in p
 
 #### 4. Auto-Fill VTU Portal (`auto-fill`)
 - **subagent_type:** `auto-fill`
-- **prompt:** "Run the VTU portal auto-fill script. Execute: `cd 'C:\Users\prith\Downloads\Internship Project' && echo '' | python auto_fill.py` — this reads the latest entry from Internship_Diary.md and fills the VTU internship portal form automatically. The `echo ''` pipes empty input to handle the 'Press Enter to close browser' prompt. Report success or failure."
+- **prompt:** "Run the VTU portal auto-fill script. Execute: `cd 'C:\Users\prith\Downloads\Internship Project' && python auto_fill.py` — this reads the latest entry from Internship_Diary.md and fills the VTU internship portal form automatically. Do NOT pipe input (no `echo '' |`). The script handles non-interactive mode by leaving the browser OPEN so the user can review and click Submit manually. Report success or failure."
 
 ### Phase 4 — Report results
 

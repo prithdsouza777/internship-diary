@@ -74,7 +74,7 @@ This skill checks if `context/project_context.md` needs updating based on the ne
 
 This skill runs `auto_fill.py` to fill the VTU portal form with the latest diary entry.
 - The script reads from `Internship_Diary.md` directly
-- Run: `echo "" | python auto_fill.py`
+- Run: `python auto_fill.py` (do NOT pipe input — the browser stays open for the user to submit manually)
 
 ### Step 7 — Report results
 

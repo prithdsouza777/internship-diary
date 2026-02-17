@@ -258,13 +258,13 @@ Google Cloud Platform (GCP), Docker, Cloud SDK, Image Management
 ## Tuesday, February 17th, 2026
 
 ### What I worked on?
-- **Container Registry Push:** Successfully pushed the Docker image to Google Container Registry (GCR) after authenticating with the service account credentials and tagging the image with the appropriate project ID and version.
-- **Cloud Run Service Configuration:** Deployed the backend server image to Google Cloud Run, configuring the service with necessary environment variables, allocated memory (2GB), CPU resources, and setting up the HTTPS endpoint with automatic scaling.
-- **Health Check Verification:** Validated the deployment by testing the backend server's health endpoints, monitoring startup logs through Cloud Console, and confirming successful integration with the existing Azure Bot Service infrastructure.
+- **Container Registry Push:** Successfully pushed the Docker image to Google Container Registry (GCR).
+- **Cloud Run Service Configuration:** Deployed the backend server image to Google Cloud Run, configuring the service with necessary environment variables.
+- **Health Check Verification:** Validated the deployment by testing the backend server's health endpoints.
 
 ### Learnings / Outcomes
-- Mastered the complete workflow of deploying containerized applications to Google Cloud Run, from image push to service configuration.
-- Learned how to configure Cloud Run's autoscaling parameters and resource allocation for optimal performance of the AI Scrum backend.
+- Learned the complete workflow of deploying containerized applications to Google Cloud Run.
+- Understood how to configure Cloud Run's autoscaling and resource allocation.
 
 ### Blockers / Risks
 - *None reported today.*

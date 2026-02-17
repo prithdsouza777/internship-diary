@@ -66,7 +66,7 @@ def main():
     try:
         # Trying Chrome first as it's most common
         options = webdriver.ChromeOptions()
-        # options.add_argument("--start-maximized")
+        options.add_experimental_option("detach", True)
         driver = webdriver.Chrome(options=options)
     except Exception as e:
         print(f"Could not launch Chrome: {e}")
@@ -289,12 +289,11 @@ def main():
 
         print("-" * 20)
         print("Done! Form is filled. Please review and hit Submit.")
+        print("Browser will remain open. Close it manually when you're done.")
 
-        # Keep browser open for user to review
-        input("Press Enter to close browser...")
-
-    finally:
-        driver.quit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        print("Browser will remain open. Please complete the form manually.")
 
 if __name__ == "__main__":
     main()
