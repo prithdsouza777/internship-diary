@@ -271,3 +271,20 @@ Google Cloud Platform (GCP), Docker, Cloud SDK, Image Management
 
 ### Skills Used
 Google Container Registry (GCR), Cloud Run, Container Deployment, Service Configuration, Cloud Monitoring, Backend Infrastructure
+
+## Wednesday, February 18th, 2026
+
+### What I worked on?
+- **Azure API Endpoint Configuration:** Configured REST API endpoints for the Azure Bot Service to handle incoming webhook requests from Microsoft Teams.
+- **GCP API Gateway Setup:** Established API endpoints on Google Cloud Platform to route requests to the Cloud Run service.
+- **Cross-Cloud Integration:** Implemented endpoint mapping to ensure seamless communication between Azure Bot Framework and GCP backend services.
+
+### Learnings / Outcomes
+- Mastered the configuration of API endpoints across multiple cloud platforms.
+- Understood the importance of proper endpoint routing for cross-cloud service communication.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+API Gateway, Azure Bot Framework, Google Cloud Endpoints, REST API Configuration, Cross-Cloud Architecture, Webhook Management
