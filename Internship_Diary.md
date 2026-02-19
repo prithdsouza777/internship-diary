@@ -288,3 +288,20 @@ Google Container Registry (GCR), Cloud Run, Container Deployment, Service Config
 
 ### Skills Used
 API Gateway, Azure Bot Framework, Google Cloud Endpoints, REST API Configuration, Cross-Cloud Architecture, Webhook Management
+
+## Thursday, February 19th, 2026
+
+### What I worked on?
+- **Teams-to-Bot Flow Testing:** Initiated end-to-end testing of the complete workflow from Microsoft Teams message submission through Azure Bot Service processing.
+- **Backend Response Validation:** Tested the full request-response cycle between Azure Bot Framework and the Google Cloud Run backend service.
+- **Integration Test Scenarios:** Created and executed test cases covering task creation, history retrieval, and automated response generation flows.
+
+### Learnings / Outcomes
+- Validated the entire system architecture works seamlessly across multiple cloud platforms.
+- Identified optimal response times for the complete request-response cycle.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+End-to-End Testing, Integration Testing, Microsoft Teams Testing, Azure Bot Framework Validation, Cloud Service Testing, Test Scenario Design
