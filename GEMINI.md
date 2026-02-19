@@ -35,51 +35,55 @@ Even a single short sentence like **"worked on API integration"** triggers the *
 
 ## Full Pipeline (runs on EVERY diary trigger)
 
-**Pipeline: Context Read → diary-writer → git-push → obsidian-sync → context-manager → auto-fill**
+**Pipeline: Context Read → diary-writer → (git-push ∥ obsidian-sync ∥ context-manager ∥ auto-fill) → Report**
 
-Since Gemini CLI skills execute inline (not in parallel), run the pipeline **sequentially** in this exact order:
+The pipeline follows a 4-phase structure. Phases 1 and 2 are sequential, Phase 3 runs all four downstream skills **concurrently in a single turn**, and Phase 4 reports results.
 
-### Step 1 — Read context
+### Phase 1 — Read context
 
 Before activating any skill, read the last ~50 lines of `Internship_Diary.md` to get the last 2 entries for continuity. The context files are already imported above via `@` syntax.
 
-### Step 2 — Activate `diary-writer` skill
+### Phase 2 — Activate `diary-writer` skill
 
 This skill generates a full formatted diary entry from the user's raw notes and appends it to `Internship_Diary.md`. Pass in:
 - The user's raw notes (exactly as typed)
 - The last 2 diary entries (for continuity)
 - Today's date
 
-**After this completes:** Display the formatted entry to the user immediately.
+**After this completes:** Display the formatted entry to the user immediately. Phase 2 MUST complete before Phase 3 begins.
 
-### Step 3 — Activate `git-push` skill
+### Phase 3 — Downstream sync (all four skills in parallel)
+
+Activate ALL FOUR of the following skills **concurrently in a single turn**. These skills have no dependencies on each other — they only depend on Phase 2 being complete.
+
+#### 3a. `git-push` skill
 
 This skill stages ONLY `Internship_Diary.md`, commits with the date as the message, and pushes to `origin main`.
 - Commit message = the date header (e.g., `Monday, February 16th, 2026`)
 - **STRICT: Do NOT stage any other files** — not context files, not CLAUDE.md, not GEMINI.md, not auto_fill.py, not agent/skill files. Even if other files were modified during this session, only `Internship_Diary.md` goes into the commit.
 
-### Step 4 — Activate `obsidian-sync` skill
+#### 3b. `obsidian-sync` skill
 
 This skill syncs the new entry to the Obsidian vault using MCP Obsidian tools.
 - Check for duplicates before appending
 - Match the existing vault file's formatting
 
-### Step 5 — Activate `context-manager` skill
+#### 3c. `context-manager` skill
 
 This skill checks if `context/project_context.md` needs updating based on the new diary entry.
 - Only update if there are milestone completions, tech stack changes, or focus shifts
 - Report "no changes" if nothing needs updating
 
-### Step 6 — Activate `auto-fill` skill
+#### 3d. `auto-fill` skill
 
 This skill runs `auto_fill.py` to fill the VTU portal form with the latest diary entry.
 - The script reads from `Internship_Diary.md` directly
 - Run: `python auto_fill.py` (do NOT pipe input — the browser stays open for the user to submit manually)
 
-### Step 7 — Report results
+### Phase 4 — Report results
 
-After all steps complete, show the user:
-1. The formatted diary entry (already shown after Step 2)
+After all Phase 3 skills complete, show the user:
+1. The formatted diary entry (already shown after Phase 2)
 2. Git push status (success/failure)
 3. Obsidian sync status (success/failure)
 4. Context manager status (updated / no changes)
@@ -94,46 +98,35 @@ User: "worked on API integration"
        │
        ▼
 ┌─────────────────────────────┐
-│ Step 1: Read last 2 entries │
+│ Phase 1: Read last 2 entries│
 │ from Internship_Diary.md    │
 └──────────────┬──────────────┘
                ▼
 ┌─────────────────────────────┐
-│ Step 2: diary-writer        │
+│ Phase 2: diary-writer       │
 │ → Generate formatted entry  │
 │ → Append to diary file      │
 │ ★ DISPLAY ENTRY TO USER     │
 └──────────────┬──────────────┘
                ▼
+┌──────────────────────────────────────────────────┐
+│ Phase 3: Downstream Sync (ALL FOUR IN PARALLEL)  │
+│                                                  │
+│ ┌───────────┐ ┌───────────┐ ┌────────────────┐  │
+│ │ git-push  │ │ obsidian- │ │ context-       │  │
+│ │ → add     │ │ sync      │ │ manager        │  │
+│ │ → commit  │ │ → sync to │ │ → check for    │  │
+│ │ → push    │ │   vault   │ │   milestone/   │  │
+│ │           │ │ → dedup   │ │   stack changes│  │
+│ └───────────┘ └───────────┘ └────────────────┘  │
+│ ┌────────────────────────────────────────────┐   │
+│ │ auto-fill                                  │   │
+│ │ → Run auto_fill.py → Fill VTU portal form  │   │
+│ └────────────────────────────────────────────┘   │
+└──────────────────────┬───────────────────────────┘
+                       ▼
 ┌─────────────────────────────┐
-│ Step 3: git-push            │
-│ → git add Internship_Diary  │
-│ → git commit -m "[DATE]"    │
-│ → git push origin main      │
-└──────────────┬──────────────┘
-               ▼
-┌─────────────────────────────┐
-│ Step 4: obsidian-sync       │
-│ → Sync entry to vault       │
-│ → Check duplicates          │
-└──────────────┬──────────────┘
-               ▼
-┌─────────────────────────────┐
-│ Step 5: context-manager     │
-│ → Check for milestone/stack │
-│   changes in new entry      │
-│ → Update project_context.md │
-│   if needed                 │
-└──────────────┬──────────────┘
-               ▼
-┌─────────────────────────────┐
-│ Step 6: auto-fill           │
-│ → Run auto_fill.py          │
-│ → Fill VTU portal form      │
-└──────────────┬──────────────┘
-               ▼
-┌─────────────────────────────┐
-│ Step 7: Report all results  │
+│ Phase 4: Report all results │
 └─────────────────────────────┘
 ```
 
@@ -199,9 +192,9 @@ Internship Project/
 
 ## Global Rules
 
-1. **Single line = full pipeline** — even "worked on X" triggers ALL steps
-2. **Sequential execution** — skills run one after another in the defined order
-3. **diary-writer MUST complete** before any other skill runs
+1. **Single line = full pipeline** — even "worked on X" triggers ALL phases
+2. **Parallel Phase 3** — git-push, obsidian-sync, context-manager, and auto-fill all run concurrently in a single turn
+3. **diary-writer MUST complete** before Phase 3 begins
 4. **No confirmations needed** — the full pipeline runs automatically, no user prompts mid-flow
 5. **Git pushes ONLY Internship_Diary.md** — commit message is just the date, nothing else
 6. **Display results** — always show the formatted entry + status of all post-write tasks

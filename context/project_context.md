@@ -7,7 +7,7 @@
 **Description:** A call automation system for Microsoft Teams designed to manage tasks with integration of previous task history.
 
 ## Technical Stack
-Azure Bot Service, Python, AWS Polly, Microsoft Teams, Docker, Google Container Registry (GCR), Google Cloud Run
+Azure Bot Service, Python, AWS Polly, Microsoft Teams, Docker, Google Container Registry (GCR), Google Cloud Run, Google Cloud Endpoints
 
 ## Current Focus / Active Sprint
 Cloud Deployment & Infrastructure Setup
