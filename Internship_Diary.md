@@ -356,3 +356,20 @@ Performance Optimization, Test Suite Design, Technical Documentation, Cloud Run 
 
 ### Skills Used
 Sprint Planning, Agile Methodologies, Project Management, Process Improvement, Scrum Framework, Progress Reporting
+
+## Monday, February 23rd, 2026
+
+### What I worked on?
+- **MongoDB Integration:** Implemented response logging infrastructure using MongoDB to track bot interactions and conversation history.
+- **Database Schema Design:** Created optimized document schemas for storing Teams conversation states, user queries, and AI responses with timestamps.
+- **Logging Middleware Setup:** Developed Python middleware to intercept bot responses and persist them asynchronously to the MongoDB cluster.
+
+### Learnings / Outcomes
+- Learned how to efficiently handle high-volume write operations in MongoDB using bulk insert operations.
+- Successfully established persistent conversation tracking that will enable advanced analytics and debugging capabilities.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+MongoDB, Database Schema Design, Python Middleware, Asynchronous Programming, Document Databases, Response Logging, Data Persistence
