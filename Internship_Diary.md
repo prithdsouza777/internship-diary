@@ -373,3 +373,20 @@ Sprint Planning, Agile Methodologies, Project Management, Process Improvement, S
 
 ### Skills Used
 MongoDB, Database Schema Design, Python Middleware, Asynchronous Programming, Document Databases, Response Logging, Data Persistence
+
+## Tuesday, February 24th, 2026
+
+### What I worked on?
+- **Role-Based Access Control:** Modified the database schema to introduce a hierarchical role system with scrum master privileges for task management.
+- **Task Assignment Data Model:** Designed new collection structures to support dynamic task assignment with owner tracking, delegation history, and role-based permissions.
+- **Schema Migration Strategy:** Implemented versioned migration scripts to safely evolve the existing database structure without disrupting active bot sessions.
+
+### Learnings / Outcomes
+- Mastered MongoDB schema evolution patterns including backward-compatible field additions and index optimization for role-based queries.
+- Successfully implemented a flexible RBAC system that differentiates between team members, scrum masters, and product owners.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Database Migration, Role-Based Access Control (RBAC), MongoDB Schema Evolution, Task Assignment Modeling, Permission Systems, Data Model Versioning
