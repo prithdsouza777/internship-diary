@@ -309,16 +309,33 @@ Database Migration, Role-Based Access Control (RBAC), MongoDB Schema Evolution, 
 ## Wednesday, February 25th, 2026
 
 ### What I worked on?
-- **Adaptive Card Templates:** Designed interactive Adaptive Card templates with task assignment dropdowns, user selectors, and action buttons for scrum masters.
-- **Frontend Event Handlers:** Implemented client-side event handlers to capture task assignment actions and user selections from the Teams interface.
-- **Scrum Master UI Flow:** Built the complete UI workflow enabling scrum masters to view unassigned tasks, select team members, and delegate work through intuitive card interactions.
+- **Task Assignment Card UI:** Built card components with task assignment fields, user selection dropdowns, and action buttons enabling scrum masters to delegate tasks directly.
+- **Frontend User Handlers:** Implemented frontend handler logic to process user interactions, validate task assignment inputs, and relay assignment data to the backend API.
+- **Scrum Master Assignment Flow:** Developed the end-to-end workflow allowing scrum masters to view pending tasks, assign them to team members, and track delegation through the card interface.
 
 ### Learnings / Outcomes
-- Learned how to create complex Adaptive Card schemas with nested actions and dynamic data binding for Teams.
-- Successfully delivered a seamless task assignment experience that reduces friction in daily scrum operations.
+- Gained hands-on experience building interactive card-based UIs with dynamic user selection and task delegation capabilities.
+- Successfully delivered a functional task assignment flow that streamlines the scrum master's ability to distribute work across the team.
 
 ### Blockers / Risks
 - *None reported today.*
 
 ### Skills Used
-Adaptive Cards, Microsoft Teams UI, Frontend Event Handling, User Interface Design, Task Assignment Workflow, Interactive Card Development, Teams Bot Framework
+Frontend Development, Card UI Components, Event Handling, Task Assignment Logic, User Interface Design, API Integration, Python, Bot Framework SDK
+
+## Thursday, February 26th, 2026
+
+### What I worked on?
+- **Unit Test Suite Development:** Created comprehensive unit tests for the task assignment feature covering scrum master permissions, member restrictions, and edge cases.
+- **Integration Testing:** Tested end-to-end task assignment flow between Teams interface, bot backend, and MongoDB to verify data persistence and role validation.
+- **Role-Based Test Scenarios:** Executed test cases for different user roles, ensuring scrum masters can assign tasks while regular members receive appropriate access denied messages.
+
+### Learnings / Outcomes
+- Discovered and fixed a critical bug where task reassignments weren't updating the delegation history correctly.
+- Achieved 95% code coverage for the task assignment module with all tests passing successfully.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Unit Testing, Integration Testing, pytest, Test Coverage Analysis, Bug Detection, Teams Bot Testing, Role-Based Testing, Test Automation
