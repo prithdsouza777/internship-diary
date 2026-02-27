@@ -20,7 +20,7 @@ Review each new diary entry for:
 
 ## The File You Manage
 
-`context/project_context.md`
+`context/project_context.md` at `C:\Users\prith\Downloads\Internship Project\context\project_context.md`
 
 This file has these sections:
 - **Project Overview** (name + description)

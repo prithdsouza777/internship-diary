@@ -78,6 +78,7 @@ Examples:
 - First person perspective
 - Use **bold text** for topic emphasis in bullet points
 - Technical and specific — mention actual tools, services, and concepts
+- Constructive — even blockers should be framed as learning opportunities
 
 ## File Operation
 

@@ -197,6 +197,9 @@ Internship Project/
 3. **diary-writer MUST complete** before Phase 3 begins
 4. **No confirmations needed** — the full pipeline runs automatically, no user prompts mid-flow
 5. **Git pushes ONLY Internship_Diary.md** — commit message is just the date, nothing else
-6. **Display results** — always show the formatted entry + status of all post-write tasks
-7. **Source of truth** — `Internship_Diary.md` is canonical; Obsidian vault and VTU portal are downstream consumers
-8. **Do NOT ask to elaborate** — expand sparse notes using project context and previous entries
+6. **Auto-push is mandatory** — every diary update ends with a git push
+7. **Auto-sync is mandatory** — every diary update syncs to Obsidian vault
+8. **Auto-fill is mandatory** — every diary update fills the VTU portal form
+9. **Display results** — always show the formatted entry + status of all post-write tasks
+10. **Source of truth** — `Internship_Diary.md` is canonical; Obsidian vault and VTU portal are downstream consumers
+11. **Do NOT ask to elaborate** — expand sparse notes using project context and previous entries

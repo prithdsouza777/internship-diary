@@ -5,3 +5,6 @@
 *.pyc
 Lib/
 Scripts/
+
+.gemini/
+gha-creds-*.json

@@ -1,17 +1,24 @@
 {
   "permissions": {
     "allow": [
-      "mcp__MCP_DOCKER__obsidian_simple_search",
-      "mcp__MCP_DOCKER__obsidian_list_files_in_vault",
-      "mcp__MCP_DOCKER__obsidian_get_file_contents",
-      "mcp__MCP_DOCKER__obsidian_patch_content",
-      "mcp__MCP_DOCKER__obsidian_append_content",
       "Bash(git add:*)",
       "Bash(python auto_fill.py:*)",
       "Bash(git commit:*)",
       "Bash(pip install:*)",
       "Bash(git push:*)",
-      "mcp__MCP_DOCKER__obsidian_delete_file"
+      "Bash(mcp list:*)",
+      "Bash(echo:*)",
+      "mcp__mcp-obsidian__obsidian_simple_search",
+      "mcp__mcp-obsidian__obsidian_list_files_in_vault",
+      "mcp__mcp-obsidian__obsidian_get_file_contents",
+      "mcp__mcp-obsidian__obsidian_append_content",
+      "mcp__craft__documents_create",
+      "mcp__craft__markdown_add",
+      "mcp__craft__documents_list",
+      "mcp__craft__blocks_get",
+      "mcp__craft__documents_delete",
+      "mcp__craft__blocks_add",
+      "mcp__craft__blocks_delete"
     ]
   }
 }

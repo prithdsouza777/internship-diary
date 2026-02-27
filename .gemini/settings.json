@@ -1,18 +1,32 @@
 {
-  "mcpServers": {
-    "obsidian": {
-      "command": "npx",
-      "args": ["-y", "obsidian-mcp"],
-      "env": {}
-    }
-  },
-  "tools": {
-    "shell": {
-      "enableInteractiveShell": false,
-      "showColor": true
-    }
-  },
-  "skills": {
-    "enabled": true
-  }
+    "mcpServers":  {
+                       "mcp-obsidian":  {
+                                            "command":  "uvx",
+                                            "args":  [
+                                                         "mcp-obsidian@0.2.2"
+                                                     ],
+                                            "env":  {
+                                                        "OBSIDIAN_API_KEY":  "eadd42cac39d8762c784a73b1d3623ee6db1ed802e8080639862187c837cf1d6",
+                                                        "OBSIDIAN_HOST":  "127.0.0.1",
+                                                        "OBSIDIAN_PORT":  "27124"
+                                                    }
+                                        },
+                       "notion":  {
+                                      "args":  [
+                                                   "-y",
+                                                   "mcp-remote",
+                                                   "https://mcp.notion.com/mcp"
+                                               ],
+                                      "command":  "npx"
+                                  }
+                   },
+    "tools":  {
+                  "shell":  {
+                                "enableInteractiveShell":  false,
+                                "showColor":  true
+                            }
+              },
+    "skills":  {
+                   "enabled":  true
+               }
 }
