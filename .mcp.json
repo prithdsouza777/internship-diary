@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mcp-obsidian": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\prith\\AppData\\Roaming\\npm\\node_modules\\obsidian-mcp\\build\\main.js",
+        "C:\\Users\\prith\\Documents\\Obsidian Vault"
+      ]
+    }
+  }
+}
