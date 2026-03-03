@@ -407,3 +407,20 @@ Technical Writing, API Documentation, Sprint Retrospective, Code Review, Markdow
 
 ### Skills Used
 Requirements Analysis, Flow Design, Microsoft Graph API, Meeting Automation, System Architecture Planning, Azure Functions, Conversation Design
+
+## Tuesday, March 3rd, 2026
+
+### What I worked on?
+- **Graph API SDK Deep Dive:** Studied Microsoft Graph Python SDK documentation, exploring authentication patterns, batch request optimization, and delta query mechanisms for efficient participant tracking.
+- **Bot State Machine Specification:** Detailed the standup bot's state transitions including idle, question-asking, awaiting-response, timeout-handling, and summary-generation states with precise transition triggers.
+- **Data Model Planning:** Designed MongoDB schemas for standup sessions, participant responses, and aggregated reports, ensuring compatibility with existing task assignment collections.
+
+### Learnings / Outcomes
+- Discovered Graph API's delta queries can significantly reduce API calls by tracking only changes in meeting participants.
+- Identified potential state machine complexity that will require careful testing of edge cases like mid-standup disconnections.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Microsoft Graph SDK, State Machine Design, MongoDB Schema Planning, API Documentation Analysis, Delta Queries, Python SDK Integration, Data Model Architecture
