@@ -509,3 +509,20 @@ Code Refactoring, Unit Testing, pytest, API Mocking, Technical Documentation
 
 ### Skills Used
 Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Processes, Project Management
+
+## Monday, March 9th, 2026
+
+### What I worked on?
+- **Azure ACS Provisioning:** Provisioned the Azure Communication Services (ACS) resource within the Azure portal to support advanced voice calling capabilities.
+- **Access Keys Configuration:** Configured secure connection strings and access keys to link the new ACS resource with the existing Bot Framework deployment.
+- **Identity Token Generation Prep:** Researched the ACS identity SDK to prepare for generating user access tokens required for initiating voice standup calls.
+
+### Learnings / Outcomes
+- Understood the foundational role of Azure Communication Services in enabling direct Voice-over-IP (VoIP) and PSTN calling within Teams bot architectures.
+- Learned how to properly secure and manage ACS access credentials within the project's cloud environment.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Azure Communication Services (ACS), Resource Provisioning, Cloud Security, API Key Management, Azure Portal
