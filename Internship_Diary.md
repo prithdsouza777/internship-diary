@@ -458,3 +458,20 @@ State Machine Implementation, AWS Polly, Microsoft Graph API, Audio Synchronizat
 
 ### Skills Used
 Project Scaffolding, Software Architecture, Module Organization, Python, API Integration Planning
+
+## Friday, March 6th, 2026
+
+### What I worked on?
+- **Participant Roll Call Logic:** Implemented the Microsoft Graph API integration to dynamically fetch active meeting participants and initialize the standup roster.
+- **Audio Stream Pipeline:** Developed the AWS Polly text-to-speech pipeline to synthesize and stream audio prompts directly into the Teams call.
+- **State Machine Integration:** Connected the participant fetcher and audio pipeline to the core state machine, fully activating the 'initialization' and 'question-asking' states.
+
+### Learnings / Outcomes
+- Mastered handling asynchronous API calls to Microsoft Graph and managing pagination for large meeting rosters within the bot's state transitions.
+- Gained a deep understanding of the specific audio streaming formats and buffer management required by the Teams Bot Framework for seamless voice playback.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Python Async/Await, AWS Polly Streaming, Microsoft Graph API, Audio Format Conversion, Bot Framework SDK
