@@ -8,9 +8,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import diary_manager
 from selenium.webdriver.support.ui import Select
-from datetime import date
+from datetime import date, datetime
+import re
 
 load_dotenv()
+
+def parse_entry_date(date_str):
+    """Parse diary date string like 'Monday, March 9th, 2026' into a date object."""
+    # Remove ordinal suffixes (1st, 2nd, 3rd, 4th, etc.)
+    cleaned = re.sub(r'(\d+)(st|nd|rd|th)', r'\1', date_str)
+    try:
+        return datetime.strptime(cleaned.strip(), "%A, %B %d, %Y").date()
+    except ValueError:
+        try:
+            return datetime.strptime(cleaned.strip(), "%B %d, %Y").date()
+        except ValueError:
+            print(f"Warning: Could not parse diary date '{date_str}', defaulting to today.")
+            return date.today()
 
 def clean_text(text):
     """Removes bullet points and formatting like * or - or ** from the text."""
@@ -170,55 +184,103 @@ def main():
             print(f"Could not select 'Cirrus labs': {e}")
             print("Please select Project manually.")
 
-        # 6. Select Today's Date
-        print("Attempting to select Today's Date...")
+        # 6. Select Date from Diary Entry
+        print("Attempting to select date from diary entry...")
         try:
-            # Custom Date Picker Logic
+            # Parse the date from the diary entry itself
+            entry_date = parse_entry_date(entry_data['date'])
+            print(f"Parsed diary date: {entry_date} (day={entry_date.day}, month={entry_date.month}, year={entry_date.year})")
+
             # 1. Click the "Pick a Date" button/trigger
             print("Clicking Date picker...")
             try:
-                 # Use the specific data attribute from the HTML
-                 date_trigger = WebDriverWait(driver, 5).until(
+                date_trigger = WebDriverWait(driver, 5).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-slot='popover-trigger']"))
-                 )
-                 date_trigger.click()
+                )
+                date_trigger.click()
             except Exception as e:
-                 print(f"Could not find Date trigger: {e}")
-                 # Fallback (mostly for debug)
-                 try:
+                print(f"Could not find Date trigger: {e}")
+                try:
                     date_trigger = driver.find_element(By.XPATH, "//button[contains(., 'Pick a Date')]")
                     date_trigger.click()
-                 except: pass
+                except:
+                    pass
 
-            # 2. Select Today
-            print("Selecting today in calendar...")
-            day_num = str(date.today().day)
+            time.sleep(1)
 
+            # 2. Navigate to the correct month/year if needed
+            target_year = entry_date.year
+            target_month = entry_date.month
+            for _ in range(24):  # max 24 navigation attempts
+                try:
+                    cal_header = driver.find_element(
+                        By.CSS_SELECTOR,
+                        "div[role='dialog'] button[name='view_date'], "
+                        "[data-slot='caption-label'], "
+                        ".rdp-caption_label"
+                    )
+                    header_text = cal_header.text.strip()
+                except Exception:
+                    header_text = ""
+
+                current_cal_date = None
+                try:
+                    current_cal_date = datetime.strptime(header_text, "%B %Y").date().replace(day=1)
+                except ValueError:
+                    pass
+
+                if current_cal_date and (current_cal_date.year, current_cal_date.month) == (target_year, target_month):
+                    break
+
+                if current_cal_date:
+                    if (target_year, target_month) < (current_cal_date.year, current_cal_date.month):
+                        try:
+                            prev_btn = driver.find_element(
+                                By.CSS_SELECTOR,
+                                "button[name='previous-month'], "
+                                "button[aria-label='Go to previous month'], "
+                                ".rdp-nav_button_previous"
+                            )
+                            prev_btn.click()
+                        except Exception:
+                            break
+                    else:
+                        try:
+                            next_btn = driver.find_element(
+                                By.CSS_SELECTOR,
+                                "button[name='next-month'], "
+                                "button[aria-label='Go to next month'], "
+                                ".rdp-nav_button_next"
+                            )
+                            next_btn.click()
+                        except Exception:
+                            break
+                else:
+                    break
+                time.sleep(0.3)
+
+            # 3. Click the correct day
+            day_num = str(entry_date.day)
+            print(f"Selecting day '{day_num}' in calendar...")
             try:
-                # Wait for the popover/calendar to appear
-                time.sleep(1)
-
-                # Try finding a button with the exact text of the day number
-                # This is common in Shadcn/Radix calendars (e.g. <button ...>4</button>)
                 day_btn = WebDriverWait(driver, 3).until(
                     EC.element_to_be_clickable((By.XPATH, f"//div[@role='dialog']//button[text()='{day_num}'] | //button[text()='{day_num}' and @role='gridcell']"))
                 )
                 day_btn.click()
                 print(f"Clicked day '{day_num}'.")
-
             except Exception as e:
                 print(f"Could not click day '{day_num}' in calendar: {e}")
                 print("Trying method 2: aria-current='date'...")
                 try:
                     today_cell = driver.find_element(By.CSS_SELECTOR, "[aria-current='date']")
                     today_cell.click()
-                    print("Clicked today loop fallback.")
-                except:
-                   print("Manual Date selection required.")
-                   time.sleep(2)
+                    print("Clicked today as fallback.")
+                except Exception:
+                    print("Manual Date selection required.")
+                    time.sleep(2)
 
         except Exception as e:
-             print(f"Could not interact with Date picker: {e}. Please verify manually.")
+            print(f"Could not interact with Date picker: {e}. Please verify manually.")
 
         # --- IMPORTANT: CLICK CONTINUE ---
         print("Attempting to click 'Continue'...")
