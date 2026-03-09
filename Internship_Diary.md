@@ -424,3 +424,20 @@ Requirements Analysis, Flow Design, Microsoft Graph API, Meeting Automation, Sys
 
 ### Skills Used
 Microsoft Graph SDK, State Machine Design, MongoDB Schema Planning, API Documentation Analysis, Delta Queries, Python SDK Integration, Data Model Architecture
+
+## Wednesday, March 4th, 2026
+
+### What I worked on?
+- **PRD Structure & Scope Definition:** Drafted the overall Product Requirements Document for the standup automation feature, establishing the document structure with sections covering goals, scope, stakeholder personas, functional requirements, non-functional requirements, and open questions. Used yesterday's state machine specification and data model as the technical foundation to ground each requirement in concrete implementation detail.
+- **Functional Requirements Authoring:** Translated the bot's state transitions (idle → question-asking → awaiting-response → timeout-handling → summary-generation) into formal functional requirements, specifying trigger conditions, expected system behaviours, and edge-case handling for scenarios like mid-standup disconnections, partial responses, and repeated no-shows. Each requirement was written with an acceptance criterion to serve as a direct input for the test plan.
+- **Stakeholder Alignment & Feedback Round:** Shared the draft PRD with the product owner and senior developer for an initial review pass. Incorporated feedback on response timeout thresholds (revised from 60 s to 90 s based on team preference), clarified the notification strategy for absent participants, and added a non-functional requirement around Graph API rate-limit handling discovered during yesterday's SDK deep-dive.
+
+### Learnings / Outcomes
+- Learned how to bridge a technical state machine spec into human-readable product requirements that non-engineering stakeholders can review and sign off on — keeping language precise enough to be testable yet accessible.
+- Stakeholder review surfaced two ambiguities in the summary-generation state that would have caused misaligned expectations later; resolving them early in the PRD phase saved significant rework.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Technical Writing, Product Requirements Documentation, Acceptance Criteria Definition, Stakeholder Communication, Requirements Traceability, Microsoft Graph API, Bot Flow Analysis, Agile Documentation
