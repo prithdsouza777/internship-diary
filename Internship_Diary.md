@@ -526,3 +526,20 @@ Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Pro
 
 ### Skills Used
 Azure Communication Services (ACS), Resource Provisioning, Cloud Security, API Key Management, Azure Portal
+
+## Tuesday, March 10th, 2026
+
+### What I worked on?
+- **ACS Identity Integration:** Implemented the Azure Communication Services Identity SDK to generate user identities.
+- **Access Token Generation:** Developed logic to issue access tokens with necessary calling scopes for the bot.
+- **Bot Framework Configuration:** Injected the generated ACS identity tokens into the bot framework's startup sequence.
+
+### Learnings / Outcomes
+- Learned how to securely authenticate ACS users programmatically to enable VoIP communications.
+- Successfully managed token lifecycles and scopes required for Teams call interoperability.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Azure Identity SDK, Token Management, VoIP Authentication, Python Integration
