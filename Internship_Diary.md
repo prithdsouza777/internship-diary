@@ -543,3 +543,20 @@ Azure Communication Services (ACS), Resource Provisioning, Cloud Security, API K
 
 ### Skills Used
 Azure Identity SDK, Token Management, VoIP Authentication, Python Integration
+
+## Wednesday, March 11th, 2026
+
+### What I worked on?
+- **Speech Resource Configuration:** Provisioned and configured the Azure Cognitive Speech service resource in the Azure portal.
+- **Service Integration:** Linked the new cognitive speech resource with the existing Azure Communication Services (ACS).
+- **IAM Policy Setup:** Configured Identity and Access Management (IAM) policies to ensure secure interoperability between the services.
+
+### Learnings / Outcomes
+- Gained practical experience in connecting multiple Azure services using secure identity configurations.
+- Understood the IAM requirements for integrating cognitive speech capabilities into an ACS-driven voice application.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Azure Cognitive Services, Azure Communication Services (ACS), IAM (Identity and Access Management), Cloud Resource Configuration, System Integration
