@@ -560,3 +560,20 @@ Azure Identity SDK, Token Management, VoIP Authentication, Python Integration
 
 ### Skills Used
 Azure Cognitive Services, Azure Communication Services (ACS), IAM (Identity and Access Management), Cloud Resource Configuration, System Integration
+
+## Thursday, March 12th, 2026
+
+### What I worked on?
+- **Adaptive Card Design:** Drafted the JSON schemas for the interactive Microsoft Teams cards used in the voice standup feature.
+- **Action Button Integration:** Added specific action buttons to the cards to trigger the automated voice standup calls.
+- **Bot Framework Payload Setup:** Configured the bot framework to construct and send the designed adaptive card payloads dynamically.
+
+### Learnings / Outcomes
+- Understood the JSON structure required to build and render Adaptive Cards within Microsoft Teams.
+- Learned how to seamlessly connect UI interactions within Teams to backend voice automation triggers.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Adaptive Cards, JSON, UI/UX Design, Microsoft Teams Integration, Azure Bot Framework
