@@ -577,3 +577,20 @@ Azure Cognitive Services, Azure Communication Services (ACS), IAM (Identity and 
 
 ### Skills Used
 Adaptive Cards, JSON, UI/UX Design, Microsoft Teams Integration, Azure Bot Framework
+
+## Friday, March 13th, 2026
+
+### What I worked on?
+- **Action Button Event Handling:** Configured event listeners in the bot framework to capture triggers from the standup adaptive card.
+- **Call Automation Logic:** Implemented backend scripts to initiate automated outbound calls using Azure Communication Services.
+- **State Management Design:** Developed a state tracker mechanism to monitor active standup sessions and user participation.
+
+### Learnings / Outcomes
+- Gained experience mapping Teams UI interactions to server-side workflow executions.
+- Learned how to effectively track and manage active call states for telephony automation.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Event-Driven Architecture, Azure Communication Services (ACS), Microsoft Teams API, State Management, Python
