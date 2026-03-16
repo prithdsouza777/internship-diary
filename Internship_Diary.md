@@ -630,3 +630,21 @@ Code Refactoring, Unit Testing, pytest, Technical Documentation, Azure Communica
 
 ### Skills Used
 Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Processes, Project Management
+
+
+## Monday, March 16th, 2026
+
+### What I worked on?
+- **Jira Integration Planning:** Initiated requirements gathering for integrating Jira into the AI Scrum bot for real-time task syncing.
+- **API Documentation Review:** Analyzed the Jira REST API documentation to understand authentication methods and endpoint structures for issue management.
+- **Workflow Mapping:** Mapped the data flow between the bot's current MongoDB task schemas and Jira's ticket format.
+
+### Learnings / Outcomes
+- Identified OAuth 2.0 as the optimal authentication method for secure bot-to-Jira communication.
+- Discovered structural differences between our internal task schema and Jira's issue model requiring a data translation layer.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Jira REST API, Requirements Gathering, Workflow Mapping, System Integration Planning, API Documentation Analysis
