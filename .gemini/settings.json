@@ -2,10 +2,35 @@
     "tools": {
         "shell": {
             "enableInteractiveShell": false,
-            "showColor": true
+            "showColor": true,
+            "allowedCommands": [
+                "cd",
+                "git add Internship_Diary.md",
+                "git commit",
+                "git push origin main",
+                "git status",
+                "python auto_fill.py"
+            ]
+        },
+        "mcp": {
+            "allowedTools": [
+                "obsidian_get_file_contents",
+                "obsidian_append_content",
+                "obsidian_patch_content",
+                "obsidian_simple_search",
+                "obsidian_list_files_in_vault",
+                "obsidian_create_note"
+            ]
         }
     },
     "skills": {
-        "enabled": true
+        "enabled": true,
+        "allowedSkills": [
+            "diary-writer",
+            "git-push",
+            "obsidian-sync",
+            "context-manager",
+            "auto-fill"
+        ]
     }
 }
