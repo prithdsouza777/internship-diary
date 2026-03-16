@@ -1,0 +1,11 @@
+{
+    "tools": {
+        "shell": {
+            "enableInteractiveShell": false,
+            "showColor": true
+        }
+    },
+    "skills": {
+        "enabled": true
+    }
+}
