@@ -594,3 +594,21 @@ Adaptive Cards, JSON, UI/UX Design, Microsoft Teams Integration, Azure Bot Frame
 
 ### Skills Used
 Event-Driven Architecture, Azure Communication Services (ACS), Microsoft Teams API, State Management, Python
+
+
+## Saturday, March 14th, 2026
+
+### What I worked on?
+- **Code Refactoring:** Refactored the ACS call automation logic and event handlers to improve maintainability.
+- **Unit Testing:** Implemented unit tests for the adaptive card event handlers and state management mechanisms.
+- **Documentation Update:** Updated the project wiki with details on the new Azure Cognitive Speech integration.
+
+### Learnings / Outcomes
+- Reinforced best practices for testing event-driven architectures involving external Azure services.
+- Improved codebase maintainability by abstracting ACS identity generation and call execution logic.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Code Refactoring, Unit Testing, pytest, Technical Documentation, Azure Communication Services (ACS)
