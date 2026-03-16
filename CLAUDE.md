@@ -75,9 +75,9 @@ Spawn ALL FOUR of these Task tool calls in a **single message** so they run in p
 #### 2. Obsidian Sync (`obsidian-sync`)
 - **subagent_type:** `obsidian-sync`
 - **prompt:** Include:
-  1. Full contents of `context/obsidian_context.md`
-  2. The new diary entry text (from Phase 2 output)
-  3. Instruction: "Sync this entry to the Obsidian vault. Use the MCP Obsidian tools (obsidian_get_file_contents, obsidian_append_content, etc.) to read the existing vault file, check for duplicates, match formatting, and append the new entry."
+  1. The new diary entry text (from Phase 2 output)
+  2. Today's date header (for duplicate checking)
+  3. Instruction: "Sync this entry to the Obsidian vault. The vault file is `Internship Diary.md` in vault `Obsidian Vault` (hardcoded, do NOT search). Read the vault file directly to check if today's date already exists. If not, append the entry as-is. If the file is not found, fall back to searching by filename."
 
 #### 3. Context Manager (`context-manager`)
 - **subagent_type:** `context-manager`

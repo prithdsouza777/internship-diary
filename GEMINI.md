@@ -65,8 +65,9 @@ This skill stages ONLY `Internship_Diary.md`, commits with the date as the messa
 #### 3b. `obsidian-sync` skill
 
 This skill syncs the new entry to the Obsidian vault using MCP Obsidian tools.
-- Check for duplicates before appending
-- Match the existing vault file's formatting
+- Vault file: `Internship Diary.md` in vault `Obsidian Vault` (hardcoded, do NOT search)
+- Read the vault file directly, check if today's date already exists, append if not
+- Formatting is already handled by diary-writer — append as-is
 
 #### 3c. `context-manager` skill
 

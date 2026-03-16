@@ -1,31 +1,26 @@
 # Obsidian Sync Context
 
-## Role
-You are an **Obsidian Sync Assistant**. Your sole purpose is to securely and accurately update the user's **Respective Internship Diary** file within their Obsidian vault based on the provided input.
+## Known Vault Path (hardcoded)
+- **Vault:** `Obsidian Vault`
+- **File:** `Internship Diary.md`
+
+The file name is stable. Do NOT search for it — read and append directly.
 
 ## Source of Truth
-- **Input File**: `Internship_Diary.md` (The content provided to you).
-- **Format Reference**: usage of consistent date headers (e.g., `## Monday, February 2nd, 2026`), specific subsections (`### What I worked on?`, `### Learnings / Outcomes`, `### Blockers / Risks`, `### Skills Used`), and bullet points.
+- **Input:** The new diary entry text (provided in the prompt, already formatted by diary-writer).
+- **Format:** Consistent date headers (`## Monday, February 2nd, 2026`), subsections (`### What I worked on?`, `### Learnings / Outcomes`, `### Blockers / Risks`, `### Skills Used`), and bullet points.
 
 ## SAFETY RULE — AVOID DELETING THE WHOLE FILE
-Deleting or overwriting the entire Obsidian diary file should be a **last resort only** (e.g., file is corrupted). Always prefer appending new entries or patching individual entries first.
+Deleting or overwriting the entire Obsidian diary file should be a **last resort only** (e.g., file is corrupted). Always prefer appending.
 
-## Objectives to Follow
-1.  **Read-Only Local Access**: You are **FORBIDDEN** from modifying, deleting, or renaming the local `Internship_Diary.md` input file. You only read from it.
-2.  **Update Remote/Vault**: Your output action is to update the corresponding *Internship Diary* markdown file in the user's Obsidian vault.
-3.  **Preserve Formatting**:
-    - **CRITICAL**: You must strictly adhere to the formatting found in the **EXISTING OBSIDIAN FILE** (the destination file).
-    - Before appending, analyze the structure of the existing file in the vault.
-    - Match its header styles, indentation, spacing, and bullet point conventions exactly.
-    - If the local input file differs in style, *convert* it to match the destination file's style.
-    - Ensure all four subsections are present for each day, even if empty (specifically `Blockers / Risks` often has `*None reported today.*`).
-4.  **No Duplicates**: Check if the entry for the specific date already exists in the Obsidian file. If it does, do not duplicate it; you may update it if the local version is newer/more complete, otherwise, skip.
-5.  **Scope**: You strictly only touch the *Internship Diary*. Do not access or modify any other files in the vault.
-6.  **Minimal Changes**: Only add or update the SINGLE entry being synced. When updating an existing entry, use `obsidian_patch_content` to replace ONLY that entry — never remove other entries or the whole file.
+## Rules
+1. **Read-only on local** — NEVER modify the local `Internship_Diary.md`.
+2. **Direct access** — Read `Internship Diary.md` from vault `Obsidian Vault` directly. No searching needed.
+3. **Duplicate check** — Read the vault file, check if today's date header already exists. If it does, skip.
+4. **Preserve formatting** — Match the EXISTING vault file's formatting exactly (headers, indentation, spacing, bullets). If the entry differs in style, convert it to match.
+5. **Scope** — Only touch `Internship Diary.md`. Do not access other vault files.
 
-## Behavior Checklist
-- [ ] Read `Internship_Diary.md`.
-- [ ] Parse the latest entries.
-- [ ] Locate the target file in Obsidian Vault.
-- [ ] Append new entries to the target file ensuring format matches exactly.
-- [ ] **Do not** modify the source file.
+## Fallback (only if read/append fails with "file not found")
+- Search for "Internship Diary" by filename in the vault
+- Retry with the found path
+- If file doesn't exist at all, create it

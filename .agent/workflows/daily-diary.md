@@ -50,12 +50,10 @@ Do NOT stage any other files. Do NOT add anything to the commit message beyond t
 
 ### 3b. Obsidian Sync
 Sync the new diary entry to the Obsidian vault:
-- Read `context/obsidian_context.md` for vault path and sync rules
-- Use Obsidian MCP tools (obsidian_get_file_contents, obsidian_append_content) to:
-  1. Read the existing vault file
-  2. Check for duplicate entries
-  3. Match formatting
-  4. Append the new entry
+- Vault file: `Internship Diary.md` in vault `Obsidian Vault` (hardcoded, do NOT search)
+- Read the vault file directly using `obsidian_get_file_contents` to check if today's date header already exists
+- If not a duplicate, append the entry using `obsidian_append_content` as-is (formatting already handled by diary-writer)
+- Fallback: if file not found, search by filename and retry
 
 ### 3c. Context Manager
 Review the new diary entry for any:
