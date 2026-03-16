@@ -612,3 +612,21 @@ Event-Driven Architecture, Azure Communication Services (ACS), Microsoft Teams A
 
 ### Skills Used
 Code Refactoring, Unit Testing, pytest, Technical Documentation, Azure Communication Services (ACS)
+
+
+## Sunday, March 15th, 2026
+
+### What I worked on?
+- **Sprint Retrospective:** Compiled notes on the week's progress regarding the Azure Communication Services (ACS) and Azure Cognitive Speech integration.
+- **Sprint Planning Preparation:** Outlined the remaining tasks for finalizing the automated voice standup feature for the upcoming sprint.
+- **Documentation Review:** Reviewed and polished the technical documentation detailing the ACS identity token generation and call automation logic.
+
+### Learnings / Outcomes
+- Identified process improvements for handling complex cross-service Azure integrations in future sprints.
+- Structured a clear task list for the upcoming week to ensure a seamless transition and code review.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Processes, Project Management
