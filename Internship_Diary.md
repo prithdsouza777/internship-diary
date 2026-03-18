@@ -665,3 +665,20 @@ Jira REST API, Requirements Gathering, Workflow Mapping, System Integration Plan
 
 ### Skills Used
 Jira Software, Agile Project Management, Mock Data Generation, Workflow Configuration, Testing Preparation
+
+## Wednesday, March 18th, 2026
+
+### What I worked on?
+- **OAuth 2.0 Authentication:** Implemented the secure OAuth 2.0 flow to authenticate the AI Scrum bot with the Jira REST API.
+- **Task Synchronization Logic:** Developed the core Python module to translate and sync bot task states to Jira issue transitions.
+- **Error Handling Middleware:** Added retry mechanisms and error logging for potential Jira API rate limits and timeouts.
+
+### Learnings / Outcomes
+- Gained practical experience implementing OAuth 2.0 flows for third-party integrations.
+- Learned to handle API rate limiting gracefully within a Python-based microservice architecture.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Python, OAuth 2.0, API Integration, Error Handling, Microservices Architecture
