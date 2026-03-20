@@ -682,3 +682,20 @@ Jira Software, Agile Project Management, Mock Data Generation, Workflow Configur
 
 ### Skills Used
 Python, OAuth 2.0, API Integration, Error Handling, Microservices Architecture
+
+## Thursday, March 19th, 2026
+
+### What I worked on?
+- **Dashboard UI Design:** Designed the frontend layout for the AI Scrum board dashboard to visualize Jira tasks.
+- **Smart Chat Integration:** Integrated a chat interface directly into the dashboard for context-aware bot interactions.
+- **Jira Data Visualization:** Implemented data fetching logic to display real-time Jira issue states within the UI.
+
+### Learnings / Outcomes
+- Learned how to seamlessly blend conversational AI interfaces with traditional Kanban board visualizations.
+- Successfully built a unified dashboard that bridges the gap between text commands and visual task management.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Frontend Development, UI/UX Design, Dashboard Creation, Conversational AI Integration, Jira API Data Visualization
