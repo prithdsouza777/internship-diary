@@ -752,3 +752,21 @@ Code Refactoring, Unit Testing, pytest, Technical Documentation, Jira API Integr
 ### Skills Used
 Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Processes, Project Management
 \
+\
+## Monday, March 23rd, 2026
+
+### What I worked on?
+- **End-to-End Connection Testing:** Conducted comprehensive integration testing of the Jira OAuth 2.0 connection and webhook event triggers.
+- **Response Logic Validation:** Verified the backend response logic for mapping incoming Jira ticket updates to the internal MongoDB task schemas.
+- **Dashboard Synchronization Tests:** Executed end-to-end tests to ensure real-time UI updates on the dashboard when Jira state changes occur.
+
+### Learnings / Outcomes
+- Validated the reliability of the OAuth token refresh mechanisms during extended API interaction sessions.
+- Ensured seamless data consistency between Jira, the Python backend, and the frontend dashboard UI.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Integration Testing, API Response Validation, OAuth 2.0, Jira Webhooks, End-to-End Testing
+\
