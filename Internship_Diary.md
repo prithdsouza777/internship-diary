@@ -757,7 +757,7 @@ Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Pro
 
 ### What I worked on?
 - **End-to-End Connection Testing:** Conducted comprehensive integration testing of the Jira OAuth 2.0 connection and webhook event triggers.
-- **Response Logic Validation:** Verified the backend response logic for mapping incoming Jira ticket updates to the internal MongoDB task schemas.
+- **Response Logic Validation:** Verified the backend response logic for mapping incoming Jira ticket updates to the bot's internal state.
 - **Dashboard Synchronization Tests:** Executed end-to-end tests to ensure real-time UI updates on the dashboard when Jira state changes occur.
 
 ### Learnings / Outcomes
