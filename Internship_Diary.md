@@ -770,3 +770,20 @@ Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Pro
 ### Skills Used
 Integration Testing, API Response Validation, OAuth 2.0, Jira Webhooks, End-to-End Testing
 \
+
+## Tuesday, March 24th, 2026
+
+### What I worked on?
+- **ADO Board Integration Planning:** Outlined the architecture for integrating Azure DevOps (ADO) boards with the bot.
+- **API Capability Analysis:** Researched ADO REST APIs for work item tracking to ensure parity with Jira.
+- **Data Mapping Strategy:** Designed a data mapping layer to translate ADO states into internal structures.
+
+### Learnings / Outcomes
+- Identified key differences between ADO WIQL queries and Jira JQL for the provider abstraction layer.
+- Mapped out the necessary OAuth scopes required for secure ADO access.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Azure DevOps Integration, API Research, System Architecture, WIQL, Data Mapping
