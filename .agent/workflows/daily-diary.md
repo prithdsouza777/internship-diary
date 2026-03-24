@@ -8,12 +8,16 @@ Any user message describing what they did today triggers this full pipeline. Eve
 
 ---
 
-## Phase 1 — Gather Context (parallel reads)
+## Phase 1 — Gather Context (two steps)
 
-Read ALL THREE of these in parallel before writing:
-- `context/personal_context.md` — formatting rules and persona
-- `context/project_context.md` — current project state, milestones, tech stack
+### Step 1a — Read personal context first (single read):
+- `context/personal_context.md` — contains persona, formatting rules, AND the **Active Project** pointer
+
+### Step 1b — Read the rest in parallel (once you know the active project file path):
+- The project file listed under **Active Project** in `personal_context.md` (e.g., `context/projects/ai-scrum-bot.md`) — tech stack, milestones, current focus
 - Last ~50 lines of `Internship_Diary.md` — last 2 entries for continuity and deduplication
+
+> Step 1a must come first because it tells you which project file to load in Step 1b.
 
 ---
 
@@ -23,7 +27,7 @@ Create a structured diary entry using the user's raw notes + all context gathere
 
 Format:
 - **Date Header**: `## [Day], [Month] [Date], [Year]` (e.g., `## Tuesday, February 4th, 2026`)
-- **What I worked on?**: Bullet points of tasks (use bold for key terms)
+- **What I worked on?**: Bullet points of tasks (use bold for key terms) — expand into at least 3 distinct, detailed bullet points
 - **Learnings / Outcomes**: Key takeaways from the day
 - **Blockers / Risks**: Any blockers or `*None reported today.*`
 - **Skills Used**: Relevant skills (comma-separated or bullet points)
@@ -50,10 +54,10 @@ Do NOT stage any other files. Do NOT add anything to the commit message beyond t
 
 ### 3b. Obsidian Sync
 Sync the new diary entry to the Obsidian vault:
-- Vault file: `Internship Diary.md` in vault `Obsidian Vault` (hardcoded, do NOT search)
-- Read the vault file directly using `obsidian_get_file_contents` to check if today's date header already exists
-- If not a duplicate, append the entry using `obsidian_append_content` as-is (formatting already handled by diary-writer)
-- Fallback: if file not found, search by filename and retry
+- Vault file: `Internship Diary.md` (hardcoded, do NOT search)
+- Read the vault file using `obsidian_get_file_contents` to check if today's date header already exists
+- If not a duplicate, append the entry using `obsidian_append_content` as-is (formatting already handled)
+- Fallback: if file not found, search by filename with `obsidian_simple_search` and retry
 
 ### 3c. Context Manager
 Review the new diary entry for any:
@@ -62,15 +66,15 @@ Review the new diary entry for any:
 - New tools or frameworks
 - Blocker updates
 
-If changes found, update `context/project_context.md`. If no updates needed, report "no changes".
+If changes found, update the active project file at `context/projects/<active-project>.md` (as identified from `personal_context.md`). Do NOT modify `personal_context.md` or `_index.md`. If no updates needed, report "no changes".
 
 ### 3d. Auto-Fill VTU Portal
 Run the auto-fill script to submit the entry to the VTU internship portal:
 ```
 cd "C:\Users\prith\Downloads\Internship Project"
-echo "" | python auto_fill.py
+python auto_fill.py
 ```
-The `echo ""` pipes empty input to handle the "Press Enter to close browser" prompt.
+Do NOT pipe input (no `echo "" |`). The script handles non-interactive mode by leaving the browser open so the user can review and click Submit manually.
 
 ---
 
@@ -104,8 +108,8 @@ After all Phase 3 tasks complete, show the user:
 | File | Purpose |
 |---|---|
 | `Internship_Diary.md` | Source of truth for all entries |
-| `context/personal_context.md` | AI persona and formatting rules |
-| `context/project_context.md` | Current project state and milestones |
-| `context/obsidian_context.md` | Obsidian vault sync rules |
+| `context/personal_context.md` | AI persona, formatting rules, and Active Project pointer |
+| `context/projects/<active-project>.md` | Current project state, milestones, tech stack |
+| `context/projects/_index.md` | Full project registry |
 | `auto_fill.py` | Selenium script for VTU portal automation |
 | `diary_manager.py` | Diary entry parser (used by auto_fill.py) |
