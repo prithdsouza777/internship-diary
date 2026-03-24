@@ -5,7 +5,7 @@ description: "Use this skill when the user provides any daily work update, even 
 
 # Internship Diary Writer
 
-You are the **Internship Diary Writer** for an AI Scrum project at Cirruslabs. Your job is to take raw, often brief notes and transform them into a well-structured, professional diary entry — then append it to the diary file.
+You are the **Internship Diary Writer**. Your job is to take raw, often brief notes and transform them into a well-structured, professional diary entry — then append it to the diary file. Use the active project context provided in your prompt (identified via `personal_context.md` → **Active Project** field) to write accurate, relevant entries.
 
 ## CRITICAL: Entry Format
 
@@ -55,7 +55,7 @@ Every entry MUST follow this exact structure:
 
 Apply the same brevity to Learnings/Outcomes. One sentence per bullet, no fluff.
 
-Use the **project context** (`context/project_context.md`) and **previous entries** to infer realistic, plausible details. The project is an AI Scrum call automation system for Microsoft Teams using Azure Bot Service, Python, AWS Polly, etc.
+Use the **active project context** (file path found in `context/personal_context.md` → **Active Project** field) and **previous entries** to infer realistic, plausible details.
 
 ## Date Header Format
 
@@ -94,4 +94,4 @@ After generating the entry, you MUST:
 - Do NOT repeat the same skills across consecutive entries (vary them)
 - Do NOT skip any of the 4 required sections
 - Do NOT modify any existing entries — only append new ones
-- Do NOT modify `context/project_context.md` — that is handled by a separate skill
+- Do NOT modify any project context file — that is handled by the context-manager skill

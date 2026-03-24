@@ -4,16 +4,16 @@ You are the **Orchestrator** for the Internship Diary System. You coordinate a p
 
 ## Project Summary
 
-- **Project:** AI Scrum (call automation for Microsoft Teams) at Cirruslabs
+- **Projects:** Multiple (active project tracked in `context/personal_context.md` → **Active Project** field)
 - **Diary file:** `Internship_Diary.md` (source of truth)
-- **Context files:** `context/personal_context.md`, `context/project_context.md`, `context/obsidian_context.md`
+- **Context files:** `context/personal_context.md` (hub), `context/projects/<active>.md` (project state)
 - **Automation:** `auto_fill.py` (Selenium), `diary_manager.py` (parser)
 
 ## Context (auto-imported)
 
 @context/personal_context.md
-@context/project_context.md
-@context/obsidian_context.md
+
+> `personal_context.md` contains the **Active Project** field which points to the active project file (e.g., `context/projects/teams-sprint-bot.md`). Read that file in Phase 1 to get current project state.
 
 ---
 
@@ -41,14 +41,23 @@ The pipeline follows a 4-phase structure. Phases 1 and 2 are sequential, Phase 3
 
 ### Phase 1 — Read context
 
-Before activating any skill, read the last ~50 lines of `Internship_Diary.md` to get the last 2 entries for continuity. The context files are already imported above via `@` syntax.
+**Step 1a:** `personal_context.md` is already auto-imported above. Find the **Active Project** field — it names the active project file (e.g., `context/projects/teams-sprint-bot.md`).
+
+**Step 1b (parallel):** Read both of these:
+- The active project file from Step 1a — tech stack, milestones, current focus
+- Last ~50 lines of `Internship_Diary.md` — last 2 entries for continuity
+
+> You do NOT need to read `context/projects/_index.md` for a normal diary entry — it's only used when switching projects.
 
 ### Phase 2 — Activate `diary-writer` skill
 
-This skill generates a full formatted diary entry from the user's raw notes and appends it to `Internship_Diary.md`. Pass in:
-- The user's raw notes (exactly as typed)
-- The last 2 diary entries (for continuity)
-- Today's date
+This skill generates a full formatted diary entry from the user's raw notes and appends it to `Internship_Diary.md`. Pass in ALL of:
+1. The user's raw notes (exactly as typed)
+2. Full contents of `context/personal_context.md`
+3. Full contents of the active project file (identified from `personal_context.md` → **Active Project**)
+4. The last 2 diary entries from `Internship_Diary.md`
+5. Today's date
+6. Instruction: "Append the new entry to `Internship_Diary.md` at `C:\Users\prith\Downloads\Internship Project\Internship_Diary.md`. Return the full formatted entry text."
 
 **After this completes:** Display the formatted entry to the user immediately. Phase 2 MUST complete before Phase 3 begins.
 
@@ -71,7 +80,8 @@ This skill syncs the new entry to the Obsidian vault using MCP Obsidian tools.
 
 #### 3c. `context-manager` skill
 
-This skill checks if `context/project_context.md` needs updating based on the new diary entry.
+This skill checks if the active project file needs updating based on the new diary entry.
+- The active project file is identified via `personal_context.md` → **Active Project** field
 - Only update if there are milestone completions, tech stack changes, or focus shifts
 - Report "no changes" if nothing needs updating
 
@@ -98,18 +108,28 @@ After all Phase 3 skills complete, show the user:
 User: "worked on API integration"
        │
        ▼
-┌─────────────────────────────┐
-│ Phase 1: Read last 2 entries│
-│ from Internship_Diary.md    │
-└──────────────┬──────────────┘
-               ▼
-┌─────────────────────────────┐
-│ Phase 2: diary-writer       │
-│ → Generate formatted entry  │
-│ → Append to diary file      │
-│ ★ DISPLAY ENTRY TO USER     │
-└──────────────┬──────────────┘
-               ▼
+┌──────────────────────────────────────────────┐
+│ Phase 1a: Read personal_context.md           │
+│ → find Active Project → get project file     │
+└──────────────────┬───────────────────────────┘
+                   ▼
+┌──────────────────────────────────────────────┐
+│ Phase 1b (parallel reads)                    │
+│  ┌──────────────────┐  ┌──────────────────┐  │
+│  │ active project   │  │ diary tail       │  │
+│  │ file (milestones,│  │ (last 2 entries) │  │
+│  │ tech stack, etc) │  │                  │  │
+│  └──────────────────┘  └──────────────────┘  │
+└──────────────────┬───────────────────────────┘
+                   ▼
+┌──────────────────────────────────────────────┐
+│ Phase 2: diary-writer                        │
+│ → Takes raw notes + all context              │
+│ → Generates full formatted entry             │
+│ → Appends to Internship_Diary.md             │
+│ ★ DISPLAY ENTRY TO USER HERE                 │
+└──────────────────┬───────────────────────────┘
+                   ▼
 ┌──────────────────────────────────────────────────┐
 │ Phase 3: Downstream Sync (ALL FOUR IN PARALLEL)  │
 │                                                  │
@@ -143,8 +163,16 @@ These skills can also be activated standalone if the user explicitly asks:
 ### "auto fill" / "fill form" / "submit diary"
 - Activate `auto-fill` skill
 
+### "switching to [project name]" / "switch project to X"
+- Read `context/personal_context.md` to get current active project
+- Read `context/projects/_index.md` to find the target project's file path
+- Update the **Active Project** section in `context/personal_context.md` (Current Project + Project File fields)
+- Confirm to the user: "Switched to [Project Name]." and show a brief summary from the new project file (current focus + last milestone)
+- **Do NOT trigger a diary entry** — this is a context switch only
+
 ### "update context" / mentions milestones
-- Activate `context-manager` skill
+- Activate `context-manager` skill with `personal_context.md` + active project file + update instructions
+- If changes were made, follow up with `git-push` skill
 
 ### "push" / "git push" / "commit"
 - Activate `git-push` skill — stages ONLY `Internship_Diary.md`, commits with the date, pushes to origin main
@@ -158,7 +186,7 @@ These skills can also be activated standalone if the user explicitly asks:
 | diary-writer | `.gemini/skills/diary-writer/` | Generate & append diary entries |
 | git-push | `.gemini/skills/git-push/` | Stage diary, commit with date, push |
 | obsidian-sync | `.gemini/skills/obsidian-sync/` | Sync entries to Obsidian vault |
-| context-manager | `.gemini/skills/context-manager/` | Update project_context.md |
+| context-manager | `.gemini/skills/context-manager/` | Update active project file in `context/projects/` |
 | auto-fill | `.gemini/skills/auto-fill/` | Run auto_fill.py for VTU portal |
 
 ---
@@ -178,16 +206,22 @@ Internship Project/
 ├── .claude/
 │   └── agents/                  # Claude Code agents (parallel system)
 ├── context/
-│   ├── personal_context.md
-│   ├── project_context.md
-│   ├── obsidian_context.md
-│   └── walkthrough.md
+│   ├── personal_context.md      # AI persona, formatting rules, active project pointer
+│   └── projects/
+│       ├── _index.md            # Project registry + add-project template (source of truth)
+│       └── <project>.md         # One file per project — see _index.md for full list
 ├── auto_fill.py
 ├── diary_manager.py
 ├── Internship_Diary.md
 ├── GEMINI.md                    # This orchestrator file
 └── CLAUDE.md                    # Claude Code orchestrator
 ```
+
+---
+
+## How to Add a New Project
+
+See `context/projects/_index.md` — it contains the full template and step-by-step instructions.
 
 ---
 

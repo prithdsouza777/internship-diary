@@ -32,7 +32,7 @@ Replace `[DATE]` with the diary entry date (e.g., `Monday, February 16th, 2026`)
 ## What NOT to Do
 
 - Do NOT run `git add .` or `git add -A`
-- Do NOT stage `context/project_context.md` or any other file
+- Do NOT stage context files, project files, or any other file
 - Do NOT add anything to the commit message beyond the date
 - Do NOT add Co-Authored-By or any other trailers
 - Do NOT stage untracked files

@@ -1,4 +1,4 @@
-.__pycache__/
+__pycache__/
 .venv/
 .env
 .DS_Store
@@ -7,3 +7,4 @@ Lib/
 Scripts/
 
 gha-creds-*.json
+.mcp.json
