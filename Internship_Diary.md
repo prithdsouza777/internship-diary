@@ -716,7 +716,7 @@ Frontend Development, UI/UX Design, Dashboard Creation, Conversational AI Integr
 
 ### Skills Used
 Frontend-Backend Integration, REST APIs, System Integration, API Payload Mapping, Full-Stack Testing
-\
+
 ## Saturday, March 21st, 2026
 
 ### What I worked on?
@@ -733,8 +733,8 @@ Frontend-Backend Integration, REST APIs, System Integration, API Payload Mapping
 
 ### Skills Used
 Code Refactoring, Unit Testing, pytest, Technical Documentation, Jira API Integration
-\
-\
+
+
 ## Sunday, March 22nd, 2026
 
 ### What I worked on?
@@ -751,8 +751,8 @@ Code Refactoring, Unit Testing, pytest, Technical Documentation, Jira API Integr
 
 ### Skills Used
 Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Processes, Project Management
-\
-\
+
+
 ## Monday, March 23rd, 2026
 
 ### What I worked on?
@@ -769,7 +769,6 @@ Sprint Retrospective, Sprint Planning, Technical Documentation Review, Agile Pro
 
 ### Skills Used
 Integration Testing, API Response Validation, OAuth 2.0, Jira Webhooks, End-to-End Testing
-\
 
 ## Tuesday, March 24th, 2026
 
@@ -787,3 +786,37 @@ Integration Testing, API Response Validation, OAuth 2.0, Jira Webhooks, End-to-E
 
 ### Skills Used
 Azure DevOps Integration, API Research, System Architecture, WIQL, Data Mapping
+
+## Wednesday, March 25th, 2026
+
+### What I worked on?
+- **ADO API Documentation Review:** Read through the complete Azure DevOps REST API documentation for board integration.
+- **WIQL Understanding:** Analyzed the Work Item Query Language (WIQL) structure for fetching specific board data.
+- **Integration Planning:** Mapped out the data translation layer needed to connect ADO responses to the AI Scrum Bot's internal state.
+
+### Learnings / Outcomes
+- Gained a comprehensive understanding of the Azure DevOps REST API endpoints necessary for board state retrieval.
+- Identified the differences in data structures between Jira and Azure DevOps for unified multi-provider support.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Azure DevOps REST API, WIQL, API Documentation Analysis, System Architecture Design
+
+## Thursday, March 26th, 2026
+
+### What I worked on?
+- **ADO Provider Implementation:** Built the Azure DevOps provider module in Python, implementing the BoardProvider protocol to match the existing Jira provider interface.
+- **WIQL Query Layer:** Developed the WIQL query builder to fetch work items, sprints, and backlog data from ADO REST API endpoints via async httpx.
+- **FastAPI Route Integration:** Wired the new ADO provider into the FastAPI backend, exposing endpoints for sprint progress, blockers, and work item retrieval.
+
+### Learnings / Outcomes
+- Successfully translated the WIQL query patterns studied earlier into functional async Python code with proper error handling.
+- Validated that the multi-provider BoardProvider abstraction works seamlessly with both Jira and ADO backends.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Python, FastAPI, async httpx, Azure DevOps REST API, WIQL, Pydantic, Multi-Provider Architecture, Backend Development
