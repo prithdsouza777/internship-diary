@@ -888,3 +888,20 @@ Sprint Retrospective, Sprint Planning, Technical Documentation, OAuth 2.0 Resear
 
 ### Skills Used
 System Architecture Design, UI/UX Planning, Requirements Gathering, FastAPI, Database Schema Design, Frontend-Backend Coordination, Scrum Framework
+
+## Tuesday, March 31st, 2026
+
+### What I worked on?
+- **Provider Switching UI:** Built the frontend provider-switching component in React, allowing users to toggle between Azure DevOps and Jira from the settings panel using Zustand state management.
+- **Credential Form Routing:** Implemented conditional form rendering that dynamically displays ADO PAT fields or Jira API token fields based on the selected provider, with validation via Pydantic-aligned schemas.
+- **TanStack Query Integration:** Wired up provider-specific TanStack Query hooks to refetch sprint data, backlog items, and blockers when the user switches between ADO and Jira mid-session.
+
+### Learnings / Outcomes
+- Discovered that invalidating TanStack Query caches on provider switch is critical to avoid stale cross-provider data leaking into the UI.
+- Gained practical experience designing a unified settings UX that abstracts away provider-specific credential differences behind a single, clean interface.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+React 19, TypeScript, Zustand v4, TanStack Query v5, Tailwind CSS v4, Vite 5, Provider Abstraction, Conditional Rendering, Frontend State Management
