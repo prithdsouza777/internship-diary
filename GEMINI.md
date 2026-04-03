@@ -59,7 +59,7 @@ This skill generates a full formatted diary entry from the user's raw notes and 
 5. Today's date
 6. Instruction: "Append the new entry to `Internship_Diary.md` at `C:\Users\prith\Downloads\Internship Project\Internship_Diary.md`. Return the full formatted entry text."
 
-**After this completes:** Display the formatted entry to the user immediately. Phase 2 MUST complete before Phase 3 begins.
+**After this completes:** Display the formatted entry to the user immediately. Also extract the VTU skills from the `---VTU_SKILLS---` block in the output — these will be passed to the auto-fill step. Phase 2 MUST complete before Phase 3 begins.
 
 ### Phase 3 — Downstream sync (all four skills in parallel)
 
@@ -89,7 +89,9 @@ This skill checks if the active project file needs updating based on the new dia
 
 This skill runs `auto_fill.py` to fill the VTU portal form with the latest diary entry.
 - The script reads from `Internship_Diary.md` directly
-- Run: `python auto_fill.py` (do NOT pipe input — the browser stays open for the user to submit manually)
+- Run: `python auto_fill.py --skills "[COMMA_SEPARATED_VTU_SKILLS]"` — replace with the skills extracted from the diary writer's `---VTU_SKILLS---` block
+- The script selects the specified skills from the portal dropdown
+- Do NOT pipe input — the browser stays open for the user to review and click Submit manually
 
 ### Phase 4 — Report results
 
@@ -195,6 +197,12 @@ These skills can also be activated standalone if the user explicitly asks:
 
 ```
 Internship Project/
+├── .agent/                          # Sub-agents (Antigravity + universal)
+│   ├── diary-writer.md
+│   ├── git-push.md
+│   ├── obsidian-sync.md
+│   ├── context-manager.md
+│   └── auto-fill.md
 ├── .gemini/
 │   ├── settings.json            # MCP server config (Obsidian)
 │   └── skills/
@@ -213,6 +221,7 @@ Internship Project/
 ├── auto_fill.py
 ├── diary_manager.py
 ├── Internship_Diary.md
+├── AGENTS.md                    # Universal orchestrator (Cursor, Windsurf, Copilot, etc.)
 ├── GEMINI.md                    # This orchestrator file
 └── CLAUDE.md                    # Claude Code orchestrator
 ```

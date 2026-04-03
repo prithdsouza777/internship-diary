@@ -66,7 +66,7 @@ Spawn `diary-writer` sub-agent via Task tool:
   5. Today's date
   6. Explicit instruction: "Append the new entry to `Internship_Diary.md` at `C:\Users\prith\Downloads\Internship Project\Internship_Diary.md`. Return the full formatted entry text."
 
-**After this agent completes:** Display the formatted entry to the user immediately.
+**After this agent completes:** Display the formatted entry to the user immediately. Also extract the VTU skills from the `---VTU_SKILLS---` block in the agent's response — these will be passed to the auto-fill agent.
 
 ### Phase 3 — Post-write tasks (ALL FOUR in parallel, single message)
 
@@ -93,7 +93,7 @@ Spawn ALL FOUR of these Task tool calls in a **single message** so they run in p
 
 #### 4. Auto-Fill VTU Portal (`auto-fill`)
 - **subagent_type:** `auto-fill`
-- **prompt:** "Run the VTU portal auto-fill script. Execute: `cd 'C:\Users\prith\Downloads\Internship Project' && python auto_fill.py` — this reads the latest entry from Internship_Diary.md and fills the VTU internship portal form automatically. Do NOT pipe input (no `echo '' |`). The script handles non-interactive mode by leaving the browser OPEN so the user can review and click Submit manually. Report success or failure."
+- **prompt:** "Run the VTU portal auto-fill script. The VTU skills for this entry are: [COMMA_SEPARATED_VTU_SKILLS]. Execute: `cd 'C:\Users\prith\Downloads\Internship Project' && python auto_fill.py --skills \"[COMMA_SEPARATED_VTU_SKILLS]\"` — this reads the latest entry from Internship_Diary.md and fills the VTU internship portal form automatically, including selecting the specified skills from the portal dropdown. Do NOT pipe input (no `echo '' |`). The script handles non-interactive mode by leaving the browser OPEN so the user can review and click Submit manually. Report success or failure."
 
 ### Phase 4 — Report results
 
@@ -190,6 +190,12 @@ When dispatching, always:
 
 ```
 Internship Project/
+├── .agent/                          # Sub-agents (Antigravity + universal)
+│   ├── diary-writer.md
+│   ├── git-push.md
+│   ├── obsidian-sync.md
+│   ├── context-manager.md
+│   └── auto-fill.md
 ├── .claude/
 │   └── agents/
 │       ├── diary-writer.md      # Diary Writer agent prompt
@@ -213,6 +219,7 @@ Internship Project/
 ├── auto_fill.py             # Selenium form-fill script (VTU portal)
 ├── diary_manager.py         # Diary entry parser
 ├── Internship_Diary.md      # Main diary file (source of truth)
+├── AGENTS.md                # Universal orchestrator (Cursor, Windsurf, Copilot, etc.)
 ├── CLAUDE.md                # Claude Code orchestrator
 └── GEMINI.md                # Gemini CLI orchestrator
 ```
