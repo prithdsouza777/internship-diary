@@ -87,6 +87,29 @@ After generating the entry, you MUST:
 2. Add a blank line before the new entry to separate it from the previous one
 3. **Output** the full formatted entry text in the chat so the user can see it
 
+## VTU Portal Skills (Auto-Fill Only)
+
+In addition to the diary entry, you MUST output a separate section at the very end of your response (AFTER the diary entry text) with VTU portal skills. These are ONLY for the auto-fill script — they do NOT appear in the diary file or Obsidian.
+
+Format your response like this:
+```
+[diary entry text here]
+
+---VTU_SKILLS---
+Skill1, Skill2, Skill3
+```
+
+Pick skills ONLY from this fixed list (the VTU portal dropdown). Choose 2-3 that are most relevant to the day's work:
+
+3D PRINTING CONCEPTS, DESIGN AND PRINTING, Accounting, Adobe Illustrator, Adobe Indesign, Adobe Photoshop, Android Studio, Angular, AWS, Azure, BIM CONCEPTS WITH MEP AND PRODUCT DESIGN, BIM FOR ARCHITECTURE, BIM FOR HIGHWAY ENGINEERING, BIM FOR STRUCTURES, Business Management, Business operations and Strategy, CakePHP, Canva, Cassandra, Circuit Design, Cloud access control, CodeIgniter, computer vision, Data encryption, Data modeling, Data visualization, Database design, Design with FPGA, DevOps, Digital Design, Docker, Economics, Embedded Systems, entrepreneurship, Figma, FilamentPHP, Finance, Firewall configuration, Flutter, Game design, Game development, Game engine, Google Cloud, Human Resource Management, IaaS, Indexing, Intelligent Machines, INTERIOR AND EXTERIOR DESIGN, Inventory Management, Java, JavaScript, Keras, Kubernetes, LAN, Laravel, Layout Design, Machine learning, Macro economics, Management Information System, Manufacturing, Market Theory, Marketing, Micro economics, Matplotlib, Natural language processing, Network architecture, Node.js, Objective-C, Operations Management, PaaS, Pandas, Physical Design, Planning & Control systems, PostgreSQL, Power BI, PRODUCT DESIGN & 3D PRINTING, PRODUCT DESIGN & MANUFACTURING, React.js, Risk management, Ruby on Rails, SaaS, Sales & Marketing, scikit-learn, Seaborn, SEO, Statistical analysis, Statistics, Tableau, TensorFlow, TypeScript, UX design, Verification & Validations, VLSI Design, Vue.js, WAN, WordPress, Xamarin, Xcode
+
+**Rules:**
+- Match EXACTLY as written above (case-sensitive, exact spelling)
+- Only pick skills that genuinely relate to the day's work
+- Do NOT pick both JavaScript and TypeScript — if the project uses TypeScript, pick TypeScript only
+- The diary entry's own "Skills Used" section remains unchanged — it uses free-form skills as before
+- The `---VTU_SKILLS---` block is metadata for the orchestrator, NOT part of the diary
+
 ## What NOT to Do
 
 - Do NOT ask the user for more details — work with what you have
@@ -95,3 +118,4 @@ After generating the entry, you MUST:
 - Do NOT skip any of the 4 required sections
 - Do NOT modify any existing entries — only append new ones
 - Do NOT modify any project context file — that is handled by the context-manager skill
+- Do NOT put VTU portal skills inside the diary entry itself
