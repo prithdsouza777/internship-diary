@@ -7,10 +7,12 @@
 **Description:** Self-hosted conversational AI assistant for Scrum Masters. Connects to Jira or Azure DevOps and answers natural-language questions about sprint progress, blockers, backlog health, and feature status. Supports write-back actions (create issues, transition statuses, assign work, add comments) with user confirmation. Responses stream in real-time via SSE with live data fetched on demand via Gemini function calling. Positioned as a self-hosted, customizable alternative to Atlassian Rovo.
 
 ## Technical Stack
-Python 3.11, FastAPI, async httpx, Pydantic, Google Gemini 3 Flash Preview (google-genai SDK), Server-Sent Events (SSE), React 19, TypeScript, Vite 5, Tailwind CSS v4, Zustand v4, TanStack Query v5, React Router v7, Docker Compose, Google Cloud Run, Google Secret Manager, Jira REST API, Azure DevOps REST API
+Python 3.11, FastAPI, async httpx, Pydantic, MongoDB, Motor, Google Gemini 3 Flash Preview (google-genai SDK), Server-Sent Events (SSE), React 19, TypeScript, Vite 5, Tailwind CSS v4, Zustand v4, TanStack Query v5, React Router v7, Docker Compose, Google Cloud Run, Google Secret Manager, Jira REST API, Azure DevOps REST API
 
 ## Current Focus / Active Sprint
-**Phase 2 — Intelligence (Planned)**
+**Phase 2 — Intelligence (Active)**
+- MongoDB logging & execution traces — Persistent operational logs and AI traces for debugging.
+- Unified Provider Logic — Refactoring the BoardProvider architecture to support concurrent Jira and ADO data fetching in a single session.
 - Per-user OAuth 2.0 (Atlassian 3LO) replacing shared API token
 - Redis session store for persistent sessions
 - Confluence integration — search and read Confluence pages from chat
@@ -31,7 +33,8 @@ Python 3.11, FastAPI, async httpx, Pydantic, Google Gemini 3 Flash Preview (goog
 - [x] Docker Compose deployment
 - [x] Google Cloud Run deployment
 
-### Phase 2 — Intelligence (Planned)
+### Phase 2 — Intelligence (In Progress)
+- [x] MongoDB logging & execution traces
 - [ ] OAuth 2.0 per-user auth (Atlassian 3LO)
 - [ ] Redis session store
 - [ ] Confluence integration
@@ -48,6 +51,7 @@ Python 3.11, FastAPI, async httpx, Pydantic, Google Gemini 3 Flash Preview (goog
 - [ ] Chrome extension
 - [ ] Jira Forge app (native panel)
 - [ ] Slack bot (slash commands via Slack Bolt SDK)
+- [ ] Employee Portal (DSU & Scrum Management UI)
 - [ ] PDF export & Confluence page publishing
 
 ## Recent Blockers (Context)
