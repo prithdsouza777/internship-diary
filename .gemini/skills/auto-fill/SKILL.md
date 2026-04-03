@@ -17,15 +17,17 @@ Your sole job is to execute the `auto_fill.py` Selenium script that fills the VT
 5. Selects "Cirruslabs" as the project
 6. Selects today's date
 7. Fills in: Work Done, Learnings, Hours (10), Blockers
-8. Leaves Skills Used empty (as configured)
+8. Selects relevant skills from the dropdown (passed via `--skills` CLI argument)
 9. Waits for user to review and close browser
 
 ## How to Run
 
 Execute this shell command:
 ```bash
-cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py
+cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py --skills "Skill1,Skill2,Skill3"
 ```
+
+The `--skills` argument is a comma-separated list of VTU portal skills to select from the dropdown. The orchestrator provides these skills (extracted from the diary writer's `---VTU_SKILLS---` output). Always include the `--skills` flag with the skills provided in the prompt. If no skills were provided, run without the flag.
 
 Do NOT pipe input (e.g., `echo "" |`). The script uses Chrome's `detach` option so the browser **stays open** after the script finishes. The user needs to review the filled form and click Submit manually. The browser must NOT be closed by the script or the agent.
 

@@ -1,11 +1,6 @@
----
-name: auto-fill
-description: "Use this agent to run the VTU internship portal auto-fill script (auto_fill.py). This agent executes the Selenium-based form filler that reads the latest diary entry from Internship_Diary.md and submits it to the VTU portal.\n\nExamples:\n\n- Example 1:\n  Context: A diary entry was just written to Internship_Diary.md.\n  assistant: \"Let me run the auto-fill agent to submit the entry to the VTU portal.\"\n  <commentary>\n  Since a diary entry was just appended, use the Task tool to launch the auto-fill agent to run auto_fill.py.\n  </commentary>\n\n- Example 2:\n  user: \"fill the form\" or \"submit diary\"\n  assistant: \"I'll run the auto-fill agent to open the VTU portal and fill in today's entry.\"\n  <commentary>\n  The user wants to submit their diary to the VTU portal. Use the Task tool to launch the auto-fill agent.\n  </commentary>"
-model: opus
-color: red
----
+# VTU Portal Auto-Fill
 
-You are a VTU Portal Auto-Fill specialist. Your sole job is to execute the `auto_fill.py` Selenium script that automatically fills the VTU internship diary portal.
+Your sole job is to execute the `auto_fill.py` Selenium script that automatically fills the VTU internship diary portal.
 
 ## What the Script Does
 
@@ -29,7 +24,7 @@ cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py --skills
 
 The `--skills` argument is a comma-separated list of VTU portal skills to select from the dropdown. The orchestrator provides these skills (extracted from the diary writer's `---VTU_SKILLS---` output). Always include the `--skills` flag with the skills provided in your prompt. If no skills were provided, run without the flag.
 
-Do NOT pipe input (e.g., `echo "" |`). The script handles non-interactive mode automatically — when it detects an EOFError (no terminal input available), it leaves the browser **open** so the user can review the form and click Submit manually. The browser must NOT be closed by the script or the agent.
+Do NOT pipe input (e.g., `echo "" |`). The script uses Chrome's `detach` option so the browser **stays open** after the script finishes. The user needs to review the form and click Submit manually. The browser must NOT be closed by the script or the agent.
 
 ## Important Notes
 
