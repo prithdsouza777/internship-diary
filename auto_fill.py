@@ -1,5 +1,6 @@
 import time
 import os
+import argparse
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -52,6 +53,13 @@ EMAIL = os.getenv("VTU_EMAIL")
 PASSWORD = os.getenv("VTU_PASSWORD")
 
 def main():
+    parser = argparse.ArgumentParser(description="VTU Portal Auto-Fill")
+    parser.add_argument("--skills", type=str, default="",
+                        help="Comma-separated list of skills to select from the portal dropdown")
+    args = parser.parse_args()
+
+    skills_list = [s.strip() for s in args.skills.split(",") if s.strip()] if args.skills else []
+
     if not EMAIL or not PASSWORD:
         print("Error: VTU_EMAIL and VTU_PASSWORD must be set in .env file.")
         print("Copy .env.example to .env and fill in your credentials.")
@@ -345,9 +353,75 @@ def main():
         except:
              print("Field 'blockers' not found.")
 
-        # 11. Fill 'Skills Used'
-        # Per user request: Skills used should always remain empty.
-        print("Skipping 'Skills Used' as requested (leaving empty).")
+        # 11. Fill 'Skills Used' from react-select dropdown
+        if skills_list:
+            print(f"Selecting skills from dropdown: {skills_list}")
+            try:
+                # Find the react-select container for skills
+                react_select = WebDriverWait(driver, 5).until(
+                    EC.presence_of_element_located((
+                        By.CSS_SELECTOR,
+                        "div[class*='react-select__control']"
+                    ))
+                )
+
+                for skill in skills_list:
+                    skill = skill.strip()
+                    if not skill:
+                        continue
+                    try:
+                        # Click the react-select control to open/focus it
+                        react_select.click()
+                        time.sleep(0.3)
+
+                        # Find the hidden input inside react-select and type the skill
+                        rs_input = driver.find_element(
+                            By.CSS_SELECTOR,
+                            "div[class*='react-select__control'] input, "
+                            "input[class*='react-select__input']"
+                        )
+                        rs_input.send_keys(skill)
+                        time.sleep(0.8)
+
+                        # Click the matching option from the dropdown menu
+                        option = WebDriverWait(driver, 3).until(
+                            EC.element_to_be_clickable((
+                                By.CSS_SELECTOR,
+                                "div[class*='react-select__option']"
+                            ))
+                        )
+                        option.click()
+                        print(f"  Selected skill: {skill}")
+                        time.sleep(0.3)
+
+                        # Click outside to close dropdown and remove cursor from the box
+                        driver.find_element(By.TAG_NAME, "body").click()
+                        time.sleep(0.2)
+                    except Exception as e:
+                        print(f"  Could not select skill '{skill}': {e}")
+                        # Clear any typed text by pressing Escape
+                        try:
+                            rs_input = driver.find_element(
+                                By.CSS_SELECTOR,
+                                "div[class*='react-select__control'] input, "
+                                "input[class*='react-select__input']"
+                            )
+                            rs_input.send_keys(Keys.ESCAPE)
+                        except:
+                            pass
+
+                # Click outside to close dropdown
+                try:
+                    driver.find_element(By.TAG_NAME, "body").click()
+                except:
+                    pass
+                print("Skills selection complete.")
+
+            except Exception as e:
+                print(f"Could not interact with skills dropdown: {e}")
+                print("Please select skills manually.")
+        else:
+            print("No skills provided. Skipping skills dropdown.")
 
         print("-" * 20)
         print("Done! Form is filled. Please review and hit Submit.")
