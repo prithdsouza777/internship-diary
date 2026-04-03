@@ -939,3 +939,20 @@ Python 3.11, FastAPI, Asyncio, Jira REST API, Azure DevOps REST API, Provider Ab
 
 ### Skills Used
 MongoDB, NoSQL Database Design, FastAPI Middleware, Asynchronous Programming, Motor, Application Logging
+
+## Friday, April 3rd, 2026
+
+### What I worked on?
+- **Reports Dashboard:** Built the initial layout for the Scrum reports page using React 19 and Tailwind CSS v4.
+- **Data Visualization:** Integrated frontend charting components to display sprint velocity and burndown metrics.
+- **State Management:** Connected the reports page to Zustand for managing date range filters and provider selection state.
+
+### Learnings / Outcomes
+- Gained experience visualizing complex agile metrics using modern React patterns.
+- Successfully managed complex filter states across multiple components using Zustand.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+React 19, TypeScript, Tailwind CSS v4, Zustand v4, Data Visualization, Frontend Development
