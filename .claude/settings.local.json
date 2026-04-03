@@ -4,9 +4,11 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
+      "Bash(git pull:*)",
       "Bash(git status:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
+      "Bash(git rm:*)",
       "Bash(python:*)",
       "Bash(pip install:*)",
       "Bash(cd:*)",
@@ -18,18 +20,19 @@
       "Bash(mcp:*)",
       "Bash(cat:*)",
       "Bash(ls:*)",
+      "Bash(tail:*)",
+      "Bash(find:*)",
       "Bash(xargs:*)",
       "Bash(where:*)",
+      "Bash(uvx:*)",
+      "Bash(curl:*)",
+      "Bash(rm:*)",
       "mcp__mcp-obsidian__obsidian_get_file_contents",
       "mcp__mcp-obsidian__obsidian_append_content",
       "mcp__mcp-obsidian__obsidian_patch_content",
       "mcp__mcp-obsidian__obsidian_simple_search",
       "mcp__mcp-obsidian__obsidian_list_files_in_vault",
-      "Bash(uvx:*)",
-      "Bash(curl:*)",
-      "mcp__mcp-obsidian__obsidian_delete_file",
-      "Bash(rm -rf __pycache__)",
-      "Bash(rmdir \"AI scurm bot\")"
+      "mcp__mcp-obsidian__obsidian_delete_file"
     ]
   }
 }
