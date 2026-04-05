@@ -973,3 +973,20 @@ React 19, TypeScript, Tailwind CSS v4, Zustand v4, Data Visualization, Frontend 
 
 ### Skills Used
 React 19, TypeScript, Pytest, Asynchronous Testing, FastAPI, Swagger Documentation, Code Refactoring
+
+## Sunday, April 5th, 2026
+
+### What I worked on?
+- **Weekly Sprint Retrospective:** Conducted a comprehensive retrospective reviewing the successful implementation of the Unified Provider Logic, MongoDB logging, and the Reports Dashboard over the past week.
+- **Sprint Planning Preparation:** Planned technical tasks for the upcoming week, prioritizing the per-user OAuth 2.0 (Atlassian 3LO) integration and the transition to a Redis session store.
+- **Architecture Documentation:** Updated the internal wiki to reflect the latest changes in the Employee Portal Architecture and the async logging middleware for better team visibility.
+
+### Learnings / Outcomes
+- Successfully consolidated the week's architectural decisions and multi-provider integration patterns into comprehensive documentation.
+- Identified potential technical challenges with the upcoming OAuth 2.0 implementation and mapped out preliminary solutions during the planning phase.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Agile Methodologies, Sprint Planning, Sprint Retrospective, Technical Documentation, System Architecture Review
