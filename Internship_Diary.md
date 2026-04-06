@@ -990,3 +990,20 @@ React 19, TypeScript, Pytest, Asynchronous Testing, FastAPI, Swagger Documentati
 
 ### Skills Used
 Agile Methodologies, Sprint Planning, Sprint Retrospective, Technical Documentation, System Architecture Review
+
+## Monday, April 6th, 2026
+
+### What I worked on?
+- **Sprint Board UI:** Developed a new frontend board page using React 19 and Tailwind CSS v4 to visualize active sprint tasks.
+- **Task Data Fetching:** Integrated TanStack Query v5 to fetch real-time issue data from the unified provider backend.
+- **Interactive State Management:** Implemented drag-and-drop functionality using Zustand v4 to update task statuses across board columns.
+
+### Learnings / Outcomes
+- Successfully mapped the backend board provider data structure to the frontend state for seamless real-time rendering.
+- Gained hands-on experience in managing complex optimistic UI updates when users transition task statuses.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+React 19, TypeScript, Tailwind CSS v4, Zustand v4, TanStack Query v5, Frontend Development
