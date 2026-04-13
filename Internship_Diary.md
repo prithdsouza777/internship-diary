@@ -1092,3 +1092,20 @@ System Design, Audio Processing, React 19, API Evaluation, Agile Workflows
 
 ### Skills Used
 Code Refactoring, Unit Testing, pytest, FastAPI, MongoDB, API Documentation, Backend Integration
+
+## Sunday, April 12th, 2026
+
+### What I worked on?
+- **Weekly Sprint Retrospective:** Conducted a comprehensive retrospective reviewing the successful implementation of the complex UI and backend synchronization features completed this week.
+- **Phase 2 Planning Preparation:** Planned the technical roadmap for the upcoming sprint, prioritizing the implementation of per-user OAuth 2.0 authentication and Redis session management.
+- **Architecture Documentation Review:** Reviewed and updated technical documentation detailing the new Kanban drag-and-drop architecture and the Voice Standup flow.
+
+### Learnings / Outcomes
+- Successfully consolidated the week's UI advancements and API refactoring efforts into structured documentation for team visibility.
+- Identified potential technical challenges with the upcoming OAuth 2.0 integration and drafted preliminary architectural solutions.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Sprint Retrospective, Sprint Planning, Technical Documentation Review, Architecture Review, Agile Processes
