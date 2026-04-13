@@ -1075,3 +1075,20 @@ React 19, TypeScript, Tailwind CSS v4, Zustand v4, Drag-and-Drop UI, Frontend De
 
 ### Skills Used
 System Design, Audio Processing, React 19, API Evaluation, Agile Workflows
+
+## Saturday, April 11th, 2026
+
+### What I worked on?
+- **API Refactoring & Optimization:** Refactored FastAPI endpoints and Motor database queries to efficiently handle real-time state sync for the new React Kanban and Sprint Board UIs.
+- **Backend Unit Testing:** Implemented comprehensive asynchronous unit tests using pytest for the backend data validation models and drag-and-drop state update logic.
+- **API Documentation Update:** Updated the Swagger documentation to accurately reflect the new request payloads and response structures required by the frontend components.
+
+### Learnings / Outcomes
+- Successfully stabilized the backend infrastructure to fully support and complete the week's complex UI implementations.
+- Reinforced best practices for writing maintainable asynchronous tests for high-frequency database update operations.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Code Refactoring, Unit Testing, pytest, FastAPI, MongoDB, API Documentation, Backend Integration
