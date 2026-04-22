@@ -1245,3 +1245,20 @@ Sprint Retrospective, Sprint Planning, System Architecture Review, Agile Process
 
 ### Skills Used
 Python 3.11, APScheduler, Timezone Management, Asynchronous Job Scheduling, Distributed Systems
+
+## Tuesday, April 21st, 2026
+
+### What I worked on?
+- **Settings UI Enhancement:** Built a new configuration panel within the React settings page featuring a timezone picker and multi-hour tag inputs for schedule management.
+- **Manager Resolution Logic:** Implemented backend logic to resolve `manager_ids` and ensure that sprint alerts and DSU reports are selectively routed only to designated team leaders.
+- **Feature Toggles:** Added granular UI toggles enabling users to independently activate or disable employee reminders and manager reports on a per-board basis.
+
+### Learnings / Outcomes
+- Mastered building complex form inputs in React, specifically handling array-based time tags and mapping them to the backend scheduling schema.
+- Delivered a highly customizable notification routing system that respects organizational hierarchy and individual team preferences.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+React 19, UI Components, Form Validation, State Management, API Integration, Notification Routing
