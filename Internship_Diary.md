@@ -1160,3 +1160,20 @@ WebSocket, Google Gemini Live, Authentication Security, React 19, FastAPI, Real-
 
 ### Skills Used
 Web Audio API, Audio Codec Conversion, PCM16, Float32, Data Buffering, Latency Optimization
+
+## Thursday, April 16th, 2026
+
+### What I worked on?
+- **Intent Handoff Architecture:** Developed the routing logic to utilize Gemini Flash Lite for initial intent interpretation, smoothly handing off standup-specific conversational turns to the appropriate tool execution flow.
+- **Context Injection:** Engineered a dynamic prompt generator that pre-fetches the current active sprint board snapshot and injects it directly into the Gemini system prompt before the voice session begins.
+- **Non-blocking Tool Execution:** Refactored the backend AI loop so that background tool executions (like Jira/ADO reads) do not block or stutter the ongoing voice stream.
+
+### Learnings / Outcomes
+- Discovered that injecting a structured board snapshot into the system prompt drastically improves the AI's ability to contextualize developer updates without requiring constant database queries.
+- Successfully decoupled tool execution from the audio playback thread, resulting in a much more fluid and natural voice interaction.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Gemini Flash Lite, Prompt Engineering, Asynchronous Execution, Context Management, System Architecture
