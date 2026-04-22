@@ -56,9 +56,13 @@ def main():
     parser = argparse.ArgumentParser(description="VTU Portal Auto-Fill")
     parser.add_argument("--skills", type=str, default="",
                         help="Comma-separated list of skills to select from the portal dropdown")
+    parser.add_argument("--date", type=str, default="",
+                        help="Target a specific diary entry by its date header (e.g., 'Tuesday, April 14th, 2026'). "
+                             "Matching is case-insensitive substring. If omitted, uses the latest entry.")
     args = parser.parse_args()
 
     skills_list = [s.strip() for s in args.skills.split(",") if s.strip()] if args.skills else []
+    target_date_str = args.date.strip()
 
     if not EMAIL or not PASSWORD:
         print("Error: VTU_EMAIL and VTU_PASSWORD must be set in .env file.")
@@ -77,9 +81,22 @@ def main():
     # We will pick the latest one, but if the file hasn't been saved/updated, it might be the Tuesday one.
     # To be safe, we just take the last one as per standard operation,
     # assuming the user controls the file content.
-    entry_data = entries[-1]
-
-    print(f"\nAuto-selecting latest entry: {entry_data['date']}")
+    if target_date_str:
+        needle = target_date_str.lower()
+        matches = [e for e in entries if needle in e['date'].lower()]
+        if not matches:
+            print(f"Error: No diary entry matched --date '{target_date_str}'.")
+            print("Available dates (last 10):")
+            for e in entries[-10:]:
+                print(f"  - {e['date']}")
+            return
+        if len(matches) > 1:
+            print(f"Warning: --date '{target_date_str}' matched {len(matches)} entries. Using the last match.")
+        entry_data = matches[-1]
+        print(f"\nSelected entry by --date: {entry_data['date']}")
+    else:
+        entry_data = entries[-1]
+        print(f"\nAuto-selecting latest entry: {entry_data['date']}")
     print("-" * 20)
 
     # 2. Launch Browser
