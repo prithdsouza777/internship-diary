@@ -35,7 +35,13 @@
       "mcp__mcp-obsidian__obsidian_patch_content",
       "mcp__mcp-obsidian__obsidian_simple_search",
       "mcp__mcp-obsidian__obsidian_list_files_in_vault",
-      "mcp__mcp-obsidian__obsidian_delete_file"
+      "mcp__mcp-obsidian__obsidian_delete_file",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__fill_form",
+      "mcp__chrome-devtools__click",
+      "mcp__chrome-devtools__wait_for"
     ]
   }
 }
