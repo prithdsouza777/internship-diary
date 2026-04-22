@@ -10,24 +10,31 @@ Your sole job is to execute the `auto_fill.py` Selenium script that fills the VT
 ## What the Script Does
 
 `auto_fill.py`:
-1. Reads the **latest entry** from `Internship_Diary.md` using `diary_manager.py`
+1. Reads an entry from `Internship_Diary.md` using `diary_manager.py` — the **latest entry** by default, or a specific one when `--date` is provided
 2. Opens Chrome browser
 3. Navigates to `https://vtu.internyet.in/dashboard/student/create-diary-entry`
 4. Logs in with stored credentials
 5. Selects "Cirruslabs" as the project
-6. Selects today's date
+6. Selects the entry's date (today's date by default, or the `--date` target)
 7. Fills in: Work Done, Learnings, Hours (10), Blockers
 8. Selects relevant skills from the dropdown (passed via `--skills` CLI argument)
 9. Waits for user to review and close browser
 
 ## How to Run
 
-Execute this shell command:
+Execute this shell command (normal case — latest entry):
 ```bash
 cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py --skills "Skill1,Skill2,Skill3"
 ```
 
-The `--skills` argument is a comma-separated list of VTU portal skills to select from the dropdown. The orchestrator provides these skills (extracted from the diary writer's `---VTU_SKILLS---` output). Always include the `--skills` flag with the skills provided in the prompt. If no skills were provided, run without the flag.
+To submit a **specific past entry** instead of the latest, add `--date` with a case-insensitive substring of the entry's date header:
+```bash
+python auto_fill.py --skills "Skill1,Skill2" --date "April 14th"
+```
+
+### Flags
+- `--skills` (comma-separated) — VTU portal skills to select. Always include with the skills the orchestrator provides (extracted from the diary writer's `---VTU_SKILLS---` block). If none were provided, omit the flag.
+- `--date` (string, optional) — case-insensitive substring match against diary entry date headers (e.g., `"April 14th"`, `"tuesday"`). If omitted, the latest entry is used. On no match, the script prints the last 10 available dates and exits. On multiple matches, it warns and uses the last one.
 
 Do NOT pipe input (e.g., `echo "" |`). The script uses Chrome's `detach` option so the browser **stays open** after the script finishes. The user needs to review the filled form and click Submit manually. The browser must NOT be closed by the script or the agent.
 

@@ -157,6 +157,7 @@ These can also be run standalone if the user explicitly asks:
 
 ### "auto fill" / "fill form" / "submit diary"
 - Delegate to `.agent/auto-fill.md` to run `auto_fill.py`
+- By default it submits the **latest** diary entry. If the user specifies a past date (e.g., "fill the form for April 14th"), pass `--date "<substring>"` to `auto_fill.py` — substring-matched case-insensitively against entry date headers.
 
 ### "switching to [project name]" / "switch project to X"
 - Read `context/personal_context.md` to get current active project

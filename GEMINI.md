@@ -164,6 +164,7 @@ These skills can also be activated standalone if the user explicitly asks:
 
 ### "auto fill" / "fill form" / "submit diary"
 - Activate `auto-fill` skill
+- By default it submits the **latest** diary entry. If the user specifies a past date (e.g., "fill the form for April 14th"), pass `--date "<substring>"` to `auto_fill.py` — substring-matched case-insensitively against entry date headers.
 
 ### "switching to [project name]" / "switch project to X"
 - Read `context/personal_context.md` to get current active project
