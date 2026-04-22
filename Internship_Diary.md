@@ -1126,3 +1126,20 @@ Sprint Retrospective, Sprint Planning, Technical Documentation Review, Architect
 
 ### Skills Used
 API Documentation Review, System Architecture Design, Google Gemini, Audio Processing Integration, Agile Workflows
+
+## Tuesday, April 14th, 2026
+
+### What I worked on?
+- **WebSocket Integration:** Implemented the Gemini Live WebSocket connection to enable direct, real-time bidirectional audio streaming between the browser and Gemini.
+- **Ephemeral Token Generation:** Developed the backend `/live/token` endpoint to securely generate single-use, 30-minute ephemeral tokens for authenticating voice sessions.
+- **Connection Management:** Added robust connection lifecycle handling in the frontend, including automatic reconnection strategies and error boundary state management for dropped calls.
+
+### Learnings / Outcomes
+- Mastered secure, direct-to-browser WebSocket authentication patterns using ephemeral tokens to prevent unauthorized API access.
+- Successfully established a persistent bidirectional audio channel capable of handling continuous voice streams without interrupting the main React application state.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+WebSocket, Google Gemini Live, Authentication Security, React 19, FastAPI, Real-time Communication
