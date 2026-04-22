@@ -1177,3 +1177,20 @@ Web Audio API, Audio Codec Conversion, PCM16, Float32, Data Buffering, Latency O
 
 ### Skills Used
 Gemini Flash Lite, Prompt Engineering, Asynchronous Execution, Context Management, System Architecture
+
+## Friday, April 17th, 2026
+
+### What I worked on?
+- **Voice UI Component:** Designed and built an animated "voice orb" component in React to serve as the visual focal point during Gemini Live interactions.
+- **Amplitude Tracking:** Integrated real-time audio amplitude analysis to drive the orb's animations, making it pulsate synchronously with the AI's speech volume.
+- **State-Responsive Styling:** Configured the orb to smoothly transition colors based on the current session state (e.g., listening, processing, speaking, error) using Tailwind CSS v4.
+
+### Learnings / Outcomes
+- Learned how to bridge Web Audio API analyzer nodes with React state and CSS animations to create highly responsive, data-driven UI elements.
+- Delivered a polished, modern visual indicator that greatly enhances user confidence by providing clear feedback on the bot's current listening and processing status.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+React 19, Tailwind CSS v4, Web Audio API, UI/UX Design, CSS Animations, Frontend Development
