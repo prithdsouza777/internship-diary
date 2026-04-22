@@ -1228,3 +1228,20 @@ Code Refactoring, Unit Testing, pytest, Technical Documentation, Audio Processin
 
 ### Skills Used
 Sprint Retrospective, Sprint Planning, System Architecture Review, Agile Processes, Project Management
+
+## Monday, April 20th, 2026
+
+### What I worked on?
+- **Scheduling Architecture:** Replaced legacy hardcoded cron jobs with a centralized `APScheduler` (AsyncIOScheduler) to handle dynamic, per-board event dispatching.
+- **Timezone Awareness:** Engineered the hourly dispatcher to read each individual board's configured timezone (e.g., Asia/Kolkata) and execute jobs precisely at the correct local hour.
+- **Multi-Hour Configuration:** Added support for dispatching multiple events per day (e.g., reminders at 9 AM and 2 PM), mapping specific job types to custom time arrays.
+
+### Learnings / Outcomes
+- Gained deep practical experience with Python's `APScheduler` and the complexities of handling dynamic, timezone-aware event triggering in a distributed system.
+- Successfully decoupled job scheduling from the application deployment cycle, allowing board managers to adjust reminder times without requiring backend restarts.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Python 3.11, APScheduler, Timezone Management, Asynchronous Job Scheduling, Distributed Systems
