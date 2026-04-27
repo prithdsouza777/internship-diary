@@ -1347,3 +1347,20 @@ Code Refactoring, Unit Testing, pytest, Technical Documentation, Multi-agent Sys
 
 ### Skills Used
 Sprint Retrospective, Sprint Planning, Technical Documentation Review, Architecture Review, Agile Processes
+
+## Monday, April 27th, 2026
+
+### What I worked on?
+- **OAuth 2.0 Integration:** Implemented the Atlassian 3LO (OAuth 2.0) authorization code grant flow to enable per-user authentication for Jira and Confluence access.
+- **Token Management:** Developed backend middleware to securely handle OAuth token exchange, refresh token rotation, and secure storage in MongoDB.
+- **Session Store Migration:** Initiated the transition from MongoDB-backed conversation persistence to a Redis-based session store to improve real-time streaming performance.
+
+### Learnings / Outcomes
+- Gained hands-on experience with Atlassian's 3LO OAuth flow, specifically managing refresh tokens to ensure long-lived user sessions without constant re-authentication.
+- Identified that migrating to Redis will significantly reduce latency during high-frequency WebSocket interactions in Gemini Live.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+OAuth 2.0, API Authentication, Token Management, Redis, Session Management
