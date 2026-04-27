@@ -1296,3 +1296,20 @@ Frontend Polish, UI/UX Design, Role-Based Access Control (RBAC), Integration Aud
 
 ### Skills Used
 API Integration, OAuth 2.0, System Architecture Design, Confluence Cloud REST API, Backend Planning
+
+## Friday, April 24th, 2026
+
+### What I worked on?
+- **Confluence Document Search:** Implemented the core document retrieval logic using the Confluence REST API, enabling the AI to query and summarize project wikis.
+- **Agent Routing Logic:** Developed a semantic routing mechanism to dynamically direct user queries to either the primary Scrum Master agent or the newly proposed Backlog Groomer.
+- **Context Window Management:** Optimized the prompt construction pipeline to handle large Confluence document chunks without exceeding LLM token limits.
+
+### Learnings / Outcomes
+- Mastered semantic routing techniques to efficiently distribute complex, multi-domain queries across specialized agents.
+- Improved context chunking strategies, ensuring that retrieved wiki documentation retains its structural integrity when passed to the LLM.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Confluence API, Semantic Routing, Prompt Engineering, Context Management, Python
