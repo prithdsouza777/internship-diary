@@ -1279,3 +1279,20 @@ React 19, UI Components, Form Validation, State Management, API Integration, Not
 
 ### Skills Used
 Frontend Polish, UI/UX Design, Role-Based Access Control (RBAC), Integration Auditing, Quality Assurance, React 19
+
+## Thursday, April 23rd, 2026
+
+### What I worked on?
+- **Confluence API Integration:** Began Phase 2 development by researching and integrating the Confluence Cloud REST API to enable document search capabilities within the chat interface.
+- **OAuth 2.0 Configuration:** Configured OAuth 2.0 scopes for Atlassian products to ensure secure, token-based access to team workspaces and knowledge bases.
+- **Multi-Agent Architecture Planning:** Outlined the preliminary multi-agent system design, defining the responsibilities for the proposed Backlog Groomer and Sprint Planner agents.
+
+### Learnings / Outcomes
+- Gained an understanding of Atlassian's OAuth 2.0 flow and how to manage granular scopes for Confluence read access.
+- Structured a clear roadmap for transitioning from a single-agent model to a distributed multi-agent architecture.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+API Integration, OAuth 2.0, System Architecture Design, Confluence Cloud REST API, Backend Planning
