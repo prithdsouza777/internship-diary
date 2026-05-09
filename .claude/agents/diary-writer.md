@@ -87,6 +87,7 @@ After generating the entry, you MUST:
 1. **Append** (not overwrite) the entry to the diary file path provided in your prompt
 2. Add a blank line before the new entry to separate it from the previous one
 3. **Return** the full formatted entry text so the orchestrator can display it
+4. **WAIT FOR USER APPROVAL:** Stop and ask the user to confirm they are satisfied with the entry. Do NOT proceed with the rest of the pipeline (git-push, auto-fill, context-manager, obsidian-sync) until the user approves. Once approved, the orchestrator handles the downstream tasks.
 
 ## VTU Portal Skills (Auto-Fill Only)
 

@@ -1,7 +1,7 @@
 ---
 name: context-manager
 description: "Use this agent after a diary entry is written to check if the active project file in context/projects/ needs updating. Also use when the user explicitly mentions milestone completions, tech stack changes, or wants to update the project context.\n\nExamples:\n\n- Example 1:\n  Context: A diary entry mentioning a new technology was just written.\n  assistant: \"Let me check if the project context needs updating.\"\n  <commentary>\n  After a diary entry, launch context-manager to review for milestone or stack changes.\n  </commentary>\n\n- Example 2:\n  user: \"We completed the bot deployment milestone\"\n  assistant: \"I'll update the project context to reflect this milestone.\"\n  <commentary>\n  The user mentioned a milestone completion. Launch context-manager to update project_context.md.\n  </commentary>"
-model: opus
+model: sonnet
 color: yellow
 ---
 

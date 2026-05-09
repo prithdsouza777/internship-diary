@@ -1,7 +1,7 @@
 ---
 name: auto-fill
 description: "Use this agent to run the VTU internship portal auto-fill script (auto_fill.py). This agent executes the Selenium-based form filler that reads the latest diary entry from Internship_Diary.md and submits it to the VTU portal.\n\nExamples:\n\n- Example 1:\n  Context: A diary entry was just written to Internship_Diary.md.\n  assistant: \"Let me run the auto-fill agent to submit the entry to the VTU portal.\"\n  <commentary>\n  Since a diary entry was just appended, use the Task tool to launch the auto-fill agent to run auto_fill.py.\n  </commentary>\n\n- Example 2:\n  user: \"fill the form\" or \"submit diary\"\n  assistant: \"I'll run the auto-fill agent to open the VTU portal and fill in today's entry.\"\n  <commentary>\n  The user wants to submit their diary to the VTU portal. Use the Task tool to launch the auto-fill agent.\n  </commentary>"
-model: opus
+model: sonnet
 color: red
 ---
 

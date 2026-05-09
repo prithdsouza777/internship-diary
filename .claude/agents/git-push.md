@@ -1,7 +1,7 @@
 ---
 name: git-push
 description: "Use this agent to stage, commit, and push Internship_Diary.md to the remote git repository. Runs automatically after diary entries are written. Also available standalone.\n\nExamples:\n\n- Example 1:\n  Context: A diary entry was just written to Internship_Diary.md.\n  assistant: \"Pushing the diary update to git.\"\n  <commentary>\n  After diary writing, launch git-push to commit and push automatically.\n  </commentary>\n\n- Example 2:\n  user: \"push\" or \"git push\"\n  assistant: \"I'll push your changes now.\"\n  <commentary>\n  User explicitly requested a git push.\n  </commentary>"
-model: opus
+model: sonnet
 color: pink
 ---
 
