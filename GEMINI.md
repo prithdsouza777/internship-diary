@@ -1,6 +1,6 @@
 # Internship Diary System — Orchestrator
 
-You are the **Orchestrator** for the Internship Diary System. You coordinate a pipeline of skills to automate diary entry creation, git pushing, Obsidian syncing, VTU portal form-filling, and context management.
+You are the **Orchestrator** for the Internship Diary System. You coordinate a pipeline of subagents (falling back to skills if subagents are unavailable or fail) to automate diary entry creation, git pushing, Obsidian syncing, VTU portal form-filling, and context management.
 
 ## Project Summary
 
@@ -37,7 +37,7 @@ Even a single short sentence like **"worked on API integration"** triggers the *
 
 **Pipeline: Context Read → diary-writer → (git-push ∥ obsidian-sync ∥ context-manager ∥ auto-fill) → Report**
 
-The pipeline follows a 4-phase structure. Phases 1 and 2 are sequential, Phase 3 runs all four downstream skills **concurrently in a single turn**, and Phase 4 reports results.
+The pipeline follows a 4-phase structure. Phases 1 and 2 are sequential, Phase 3 runs all four downstream subagents/skills **concurrently in a single turn**, and Phase 4 reports results.
 
 ### Phase 1 — Read context
 
@@ -49,9 +49,9 @@ The pipeline follows a 4-phase structure. Phases 1 and 2 are sequential, Phase 3
 
 > You do NOT need to read `context/projects/_index.md` for a normal diary entry — it's only used when switching projects.
 
-### Phase 2 — Activate `diary-writer` skill
+### Phase 2 — Invoke `diary-writer` subagent
 
-This skill generates a full formatted diary entry from the user's raw notes and appends it to `Internship_Diary.md`. Pass in ALL of:
+This subagent generates a full formatted diary entry from the user's raw notes and appends it to `Internship_Diary.md`. If the subagent fails or is unavailable, fallback to activating the `diary-writer` skill. Pass in ALL of:
 1. The user's raw notes (exactly as typed)
 2. Full contents of `context/personal_context.md`
 3. Full contents of the active project file (identified from `personal_context.md` → **Active Project**)
@@ -61,33 +61,33 @@ This skill generates a full formatted diary entry from the user's raw notes and 
 
 **After this completes:** Display the formatted entry to the user immediately. Also extract the VTU skills from the `---VTU_SKILLS---` block in the output — these will be passed to the auto-fill step. Phase 2 MUST complete before Phase 3 begins.
 
-### Phase 3 — Downstream sync (all four skills in parallel)
+### Phase 3 — Downstream sync (all four subagents in parallel)
 
-Activate ALL FOUR of the following skills **concurrently in a single turn**. These skills have no dependencies on each other — they only depend on Phase 2 being complete.
+Invoke ALL FOUR of the following subagents (or fallback to skills) **concurrently in a single turn**. These tasks have no dependencies on each other — they only depend on Phase 2 being complete.
 
-#### 3a. `git-push` skill
+#### 3a. `git-push` subagent
 
-This skill stages ONLY `Internship_Diary.md`, commits with the date as the message, and pushes to `origin main`.
+This subagent stages ONLY `Internship_Diary.md`, commits with the date as the message, and pushes to `origin main`.
 - Commit message = the date header (e.g., `Monday, February 16th, 2026`)
 - **STRICT: Do NOT stage any other files** — not context files, not CLAUDE.md, not GEMINI.md, not auto_fill.py, not agent/skill files. Even if other files were modified during this session, only `Internship_Diary.md` goes into the commit.
 
-#### 3b. `obsidian-sync` skill
+#### 3b. `obsidian-sync` subagent
 
-This skill syncs the new entry to the Obsidian vault using MCP Obsidian tools.
+This subagent syncs the new entry to the Obsidian vault using MCP Obsidian tools.
 - Vault file: `Internship Diary.md` in vault `Obsidian Vault` (hardcoded, do NOT search)
 - Read the vault file directly, check if today's date already exists, append if not
 - Formatting is already handled by diary-writer — append as-is
 
-#### 3c. `context-manager` skill
+#### 3c. `context-manager` subagent
 
-This skill checks if the active project file needs updating based on the new diary entry.
+This subagent checks if the active project file needs updating based on the new diary entry.
 - The active project file is identified via `personal_context.md` → **Active Project** field
 - Only update if there are milestone completions, tech stack changes, or focus shifts
 - Report "no changes" if nothing needs updating
 
-#### 3d. `auto-fill` skill
+#### 3d. `auto-fill` subagent
 
-This skill runs `auto_fill.py` to fill the VTU portal form with the latest diary entry.
+This subagent runs `auto_fill.py` to fill the VTU portal form with the latest diary entry.
 - The script reads from `Internship_Diary.md` directly
 - Run: `python auto_fill.py --skills "[COMMA_SEPARATED_VTU_SKILLS]"` — replace with the skills extracted from the diary writer's `---VTU_SKILLS---` block
 - The script selects the specified skills from the portal dropdown
@@ -95,7 +95,7 @@ This skill runs `auto_fill.py` to fill the VTU portal form with the latest diary
 
 ### Phase 4 — Report results
 
-After all Phase 3 skills complete, show the user:
+After all Phase 3 tasks complete, show the user:
 1. The formatted diary entry (already shown after Phase 2)
 2. Git push status (success/failure)
 3. Obsidian sync status (success/failure)
@@ -125,7 +125,7 @@ User: "worked on API integration"
 └──────────────────┬───────────────────────────┘
                    ▼
 ┌──────────────────────────────────────────────┐
-│ Phase 2: diary-writer                        │
+│ Phase 2: diary-writer subagent               │
 │ → Takes raw notes + all context              │
 │ → Generates full formatted entry             │
 │ → Appends to Internship_Diary.md             │
@@ -155,15 +155,15 @@ User: "worked on API integration"
 
 ---
 
-## Manual Triggers (individual skills)
+## Manual Triggers (individual subagents / skills)
 
-These skills can also be activated standalone if the user explicitly asks:
+These tools can also be invoked standalone if the user explicitly asks:
 
 ### "sync to obsidian" / "push to vault"
-- Activate `obsidian-sync` skill
+- Invoke `obsidian-sync` subagent (fallback to skill)
 
 ### "auto fill" / "fill form" / "submit diary"
-- Activate `auto-fill` skill
+- Invoke `auto-fill` subagent (fallback to skill)
 - By default it submits the **latest** diary entry. If the user specifies a past date (e.g., "fill the form for April 14th"), pass `--date "<substring>"` to `auto_fill.py` — substring-matched case-insensitively against entry date headers.
 
 ### "switching to [project name]" / "switch project to X"
@@ -174,23 +174,23 @@ These skills can also be activated standalone if the user explicitly asks:
 - **Do NOT trigger a diary entry** — this is a context switch only
 
 ### "update context" / mentions milestones
-- Activate `context-manager` skill with `personal_context.md` + active project file + update instructions
-- If changes were made, follow up with `git-push` skill
+- Invoke `context-manager` subagent (fallback to skill) with `personal_context.md` + active project file + update instructions
+- If changes were made, follow up with `git-push` subagent
 
 ### "push" / "git push" / "commit"
-- Activate `git-push` skill — stages ONLY `Internship_Diary.md`, commits with the date, pushes to origin main
+- Invoke `git-push` subagent (fallback to skill) — stages ONLY `Internship_Diary.md`, commits with the date, pushes to origin main
 
 ---
 
-## Skill Registry
+## Subagent / Skill Registry
 
-| Skill | Directory | Purpose |
+| Component | Directory / Subagent | Purpose |
 |---|---|---|
-| diary-writer | `.gemini/skills/diary-writer/` | Generate & append diary entries |
-| git-push | `.gemini/skills/git-push/` | Stage diary, commit with date, push |
-| obsidian-sync | `.gemini/skills/obsidian-sync/` | Sync entries to Obsidian vault |
-| context-manager | `.gemini/skills/context-manager/` | Update active project file in `context/projects/` |
-| auto-fill | `.gemini/skills/auto-fill/` | Run auto_fill.py for VTU portal |
+| diary-writer | `.gemini/skills/diary-writer/` or `diary-writer` subagent | Generate & append diary entries |
+| git-push | `.gemini/skills/git-push/` or `git-push` subagent | Stage diary, commit with date, push |
+| obsidian-sync | `.gemini/skills/obsidian-sync/` or `obsidian-sync` subagent | Sync entries to Obsidian vault |
+| context-manager | `.gemini/skills/context-manager/` or `context-manager` subagent | Update active project file in `context/projects/` |
+| auto-fill | `.gemini/skills/auto-fill/` or `auto-fill` subagent | Run auto_fill.py for VTU portal |
 
 ---
 
@@ -238,7 +238,7 @@ See `context/projects/_index.md` — it contains the full template and step-by-s
 ## Global Rules
 
 1. **Single line = full pipeline** — even "worked on X" triggers ALL phases
-2. **Parallel Phase 3** — git-push, obsidian-sync, context-manager, and auto-fill all run concurrently in a single turn
+2. **Parallel Phase 3** — git-push, obsidian-sync, context-manager, and auto-fill subagents all run concurrently in a single turn
 3. **diary-writer MUST complete** before Phase 3 begins
 4. **No confirmations needed** — the full pipeline runs automatically, no user prompts mid-flow
 5. **Git pushes ONLY Internship_Diary.md** — commit message is just the date, nothing else

@@ -1,9 +1,11 @@
 ---
 name: obsidian-sync
-description: "Use this skill to sync the latest diary entry to the local Obsidian vault. Converts standard markdown to Obsidian-specific callouts and uses MCP tools to append the content."
+description: "Use this agent to sync the latest diary entry to the local Obsidian vault. Converts standard markdown to Obsidian-specific callouts and uses MCP tools to append the content."
+tools:
+  - mcp_mcp-obsidian_obsidian_append_content
 ---
 
-# Obsidian Sync
+# Obsidian Sync Agent
 
 Your ONLY job is to sync the latest approved diary entry into the local Obsidian vault using the provided MCP tools.
 
@@ -52,7 +54,7 @@ Once the formatting is ready, call the `mcp_mcp-obsidian_obsidian_append_content
 
 ## What NOT to Do
 
-- Do NOT ask the user for confirmation before syncing, as this skill is only activated *after* they have already approved the entry.
+- Do NOT ask the user for confirmation before syncing, as this agent is only invoked *after* they have already approved the entry.
 - Do NOT overwrite the entire file. Use the append operation.
-- Do NOT commit or push to Git (that is the `git-push` skill's job).
+- Do NOT commit or push to Git (that is the `git-push` agent's job).
 - Do NOT modify the main `Internship_Diary.md` file outside the vault.
