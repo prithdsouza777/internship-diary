@@ -85,6 +85,40 @@ Azure Active Directory, OAuth 2.0, Teams App Manifest, Bot Registration, Securit
 ### Skills Used
 Python Async Programming, Adaptive Cards Designer, Bot Framework SDK, Message Routing, Command Pattern Implementation
 
+## Saturday, February 7th, 2026
+
+### What I worked on?
+- **Workflow Configuration:** Configured the initial parameters for Gemini's agentic workflow integration.
+- **Tool Mapping:** Connected necessary tools and APIs within the agentic framework for seamless execution.
+- **Process Definition:** Defined the specific logic steps and rules for the agent to follow.
+
+### Learnings / Outcomes
+- Understood the process of configuring agentic workflows.
+- Gained experience with Gemini's advanced workflow capabilities.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Workflow Automation, Gemini Configuration, AI Agent Implementation
+
+## Sunday, February 8th, 2026
+
+### What I worked on?
+- **Compliance Training:** Completed mandatory ADP compliance modules covering workplace standards.
+- **Data Security:** Reviewed protocols for handling sensitive data and maintaining information security.
+- **Policy Review:** Familiarized myself with organizational policies regarding ethics and professional conduct.
+
+### Learnings / Outcomes
+- Reinforced understanding of corporate compliance and ethical standards.
+- Learned best practices for data privacy and security within the organization.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Compliance Awareness, Data Privacy, Professional Ethics
+
 ## Monday, February 9th, 2026
 
 ### What I worked on?
@@ -169,6 +203,40 @@ State Machine Design, Redis Cache, Session Management, Context Preservation, Dis
 
 ### Skills Used
 Agile Metrics, matplotlib, Data Visualization, Sprint Management, Story Point Calculations, Chart Generation
+
+## Saturday, February 14th, 2026
+
+### What I worked on?
+- **Docker Usage:** Created a Docker image for the application.
+- **Configuration Files:** Prepared necessary configuration files for cloud deployment.
+- **Cloud Preparation:** Readied the Docker image for upload to the cloud.
+
+### Learnings / Outcomes
+- Gained experience in containerizing applications using Docker.
+- Understood the process of preparing images for cloud environments.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Docker, Containerization, Cloud Deployment Preparation, Configuration Management
+
+## Sunday, February 15th, 2026
+
+### What I worked on?
+- **Documentation:** Created a comprehensive guide for deploying the Docker container.
+- **Environment Setup:** Documented the required environment variables and secrets.
+- **Best Practices:** Reviewed cloud provider documentation to ensure optimal configuration.
+
+### Learnings / Outcomes
+- Reinforced the importance of clear, technical documentation for deployment pipelines.
+- Gained insights into best practices for secure container orchestration.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Technical Writing, Documentation, Cloud Best Practices
 
 ## Monday, February 16th, 2026
 
