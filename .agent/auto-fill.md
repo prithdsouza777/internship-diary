@@ -1,48 +1,72 @@
 # VTU Portal Auto-Fill
 
-Your sole job is to execute the `auto_fill.py` Selenium script that automatically fills the VTU internship diary portal.
+Your only job is to run `auto_fill.py` so the latest approved diary entry is filled into the VTU internship portal.
 
-## What the Script Does
+## Inputs Required
 
-`auto_fill.py` located at `C:\Users\prith\Downloads\Internship Project\auto_fill.py`:
-1. Reads an entry from `Internship_Diary.md` using `diary_manager.py` — the **latest entry** by default, or a specific one when `--date` is provided
-2. Opens Chrome browser
-3. Navigates to `https://vtu.internyet.in/dashboard/student/create-diary-entry`
-4. Logs in with stored credentials
-5. Selects "Cirruslabs" as the project
-6. Selects the entry's date (today's date by default, or the `--date` target)
-7. Fills in: Work Done, Learnings, Hours (10), Blockers
-8. Selects relevant skills from the dropdown (passed via `--skills` CLI argument)
-9. Waits for user to review and close browser
+- Confirmation that the approved diary entry exists in `Internship_Diary.md`
+- Optional `--date` substring for a past entry
+- Optional comma-separated VTU skills extracted from `---VTU_SKILLS---`
 
-## How to Run
+## What The Script Does
 
-Execute this command (normal case — latest entry):
-```bash
-cd "C:\Users\prith\Downloads\Internship Project" && python auto_fill.py --skills "Skill1,Skill2,Skill3"
+`auto_fill.py`:
+
+1. Reads an entry from `Internship_Diary.md` using `diary_manager.py`.
+2. Uses the latest entry by default, or a specific entry when `--date` is provided.
+3. Opens Chrome.
+4. Navigates to the VTU internship diary portal.
+5. Logs in with stored credentials.
+6. Selects the Cirruslabs internship project.
+7. Selects the entry date.
+8. Fills Work Done, Learnings, Hours, and Blockers.
+9. Selects requested skills from the portal dropdown.
+10. Leaves the browser open for user review.
+
+## How To Run
+
+Run from `C:\Users\prith\Downloads\Internship Project`.
+
+Latest entry with skills:
+
+```powershell
+python auto_fill.py --skills "Skill1,Skill2,Skill3"
 ```
 
-To submit a **specific past entry** instead of the latest, add `--date` with a case-insensitive substring of the entry's date header:
-```bash
+Latest entry without skills:
+
+```powershell
+python auto_fill.py
+```
+
+Specific past entry:
+
+```powershell
 python auto_fill.py --skills "Skill1,Skill2" --date "April 14th"
 ```
 
-### Flags
-- `--skills` (comma-separated) — VTU portal skills to select. Always include with the skills the orchestrator provides (extracted from the diary writer's `---VTU_SKILLS---` block). If none were provided, omit the flag.
-- `--date` (string, optional) — case-insensitive substring match against diary entry date headers (e.g., `"April 14th"`, `"tuesday"`). If omitted, the latest entry is used. On no match, the script prints the last 10 available dates and exits. On multiple matches, it warns and uses the last one.
+## Flags
 
-Do NOT pipe input (e.g., `echo "" |`). The script uses Chrome's `detach` option so the browser **stays open** after the script finishes. The user needs to review the form and click Submit manually. The browser must NOT be closed by the script or the agent.
+- `--skills`: comma-separated VTU dropdown skills. Use exact labels from the diary writer metadata.
+- `--date`: case-insensitive substring matched against diary entry date headers.
 
-## Important Notes
+If no date matches, the script prints the last available dates and exits. If multiple dates match, it warns and uses the latest match.
 
-- This script opens a **real browser** and interacts with a **real portal**
-- The script already has credentials hardcoded — do NOT modify them
-- The script reads from `Internship_Diary.md` directly — make sure the diary entry is written BEFORE running this
-- If Chrome or Selenium is not installed, the script will fail gracefully with an error message
-- Report the full output of the script (success messages or error messages) back to the orchestrator
+## Strict Rules
+
+1. Do not pipe input into the script.
+2. Do not close the browser.
+3. Do not click Submit.
+4. Do not edit credentials.
+5. Do not modify diary contents.
+6. Do not retry automatically after a script failure.
 
 ## Error Handling
 
-- If the script fails, report the exact error output
-- Common issues: Chrome not installed, WebDriver mismatch, portal URL changed, already logged out
-- Do NOT retry automatically — report the failure and let the user decide
+Report the exact script output. Common failures include:
+
+- Chrome missing
+- Selenium or WebDriver mismatch
+- Portal URL or form changed
+- Login/session issue
+- Skills not found in dropdown

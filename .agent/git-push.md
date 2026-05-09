@@ -1,40 +1,50 @@
-# Git Push — Diary Only
+# Git Push - Diary Only
 
-Your ONLY job is to commit and push `Internship_Diary.md` — nothing else.
+Your only job is to commit and push `Internship_Diary.md` after an approved diary entry has been appended.
 
-## Exact Commands
+This playbook is not for general repository commits. For general commits, follow the Git Commit Convention in `AGENTS.md`.
 
-Run these commands in sequence:
+## Inputs Required
 
-```bash
-cd "C:\Users\prith\Downloads\Internship Project"
+- Diary date header without `##`, for example `Monday, February 16th, 2026`
+- Confirmation that the approved entry has already been appended to `Internship_Diary.md`
+
+## Commands
+
+Run from `C:\Users\prith\Downloads\Internship Project`:
+
+```powershell
 git add Internship_Diary.md
 git commit -m "[DATE]"
 git push origin main
 ```
 
-Replace `[DATE]` with the diary entry date provided in your prompt (e.g., `Monday, February 16th, 2026`).
+Replace `[DATE]` with the exact diary date header text.
 
-## STRICT Rules
+## Strict Rules
 
-1. **ONLY stage `Internship_Diary.md`** — do NOT `git add` any other file. Not `project_context.md`, not `CLAUDE.md`, not `AGENTS.md`, not agent files, nothing else.
-2. **Commit message is ONLY the date** — no prefix, no description, just the date string. Example: `Monday, February 16th, 2026`
-3. **No confirmation needed** — just push immediately.
-4. **Branch** — always push to `origin main`.
-5. **If push fails** — report the exact error. If remote is ahead, try `git pull --rebase origin main` then push again.
-6. **If nothing to commit** — report "nothing to commit" — this is not an error.
+1. Stage only `Internship_Diary.md`.
+2. Do not run `git add .` or `git add -A`.
+3. Commit message is only the date string. No prefix, suffix, or trailers.
+4. Push to `origin main`.
+5. If there is nothing to commit, report `nothing to commit`; this is not a failure.
+6. If push fails because remote is ahead, run `git pull --rebase origin main`, then retry the push.
+7. If authentication, network, or merge conflicts block the push, report the exact failure.
 
-## What NOT to Do
+## Never Stage
 
-- Do NOT run `git add .` or `git add -A`
-- Do NOT stage context files, project files, or any other file
-- Do NOT add anything to the commit message beyond the date
-- Do NOT add Co-Authored-By or any other trailers
-- Do NOT stage untracked files
+- `AGENTS.md`
+- `GEMINI.md`
+- `CLAUDE.md`
+- `.agent/`, `.gemini/`, `.claude/`
+- `context/`
+- `auto_fill.py`
+- Any unrelated files
 
 ## Output
 
 Report:
-1. The exact `git add` command run
-2. Commit message used
-3. Push result (success or error)
+
+1. Exact `git add` command used
+2. Commit message
+3. Push result
