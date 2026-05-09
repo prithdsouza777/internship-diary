@@ -160,20 +160,28 @@ def main():
         # 4. Wait for Login completion & Navigate to Diary
         print("Waiting for Dashboard/Sidebar...")
         try:
-            # Wait for URL to change or sidebar to appear
-            time.sleep(3)
-
-            # Click "Internship Diary" in sidebar
-            print("Navigating to 'Internship Diary'...")
-            sidebar_link = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Internship Diary"))
+            # Wait up to 120 seconds for login to complete (URL changes from login)
+            WebDriverWait(driver, 120).until(
+                lambda d: "login" not in d.current_url.lower() and "signin" not in d.current_url.lower()
             )
-            sidebar_link.click()
-            print("Clicked 'Internship Diary'.")
+            print("Login successful.")
+            
+            print("Navigating to 'Internship Diary'...")
+            try:
+                sidebar_link = WebDriverWait(driver, 30).until(
+                    EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Internship Diary"))
+                )
+                sidebar_link.click()
+                print("Clicked 'Internship Diary'.")
+            except:
+                print("Could not find sidebar link, navigating directly via URL...")
+                driver.get("https://vtu.internyet.in/dashboard/student/create-diary-entry")
 
-            # If it's a menu that expands, we might need to click a sub-item.
-            # Assuming it goes straight to the page or we need to click "Create Entry"
-            # Let's wait a bit to see if we are on the form.
+            # Wait a moment for page transition
+            print("Waiting for Create Diary Entry page to load completely...")
+            WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.ID, "internship_id"))
+            )
             time.sleep(2)
 
         except Exception as e:
@@ -185,31 +193,7 @@ def main():
 
         # --- FORM SELECTION LOGIC ---
 
-        # 5. Select 'Cirrus labs' (Project Selection)
-        print("Attempting to select 'Cirrus labs'...")
-        try:
-            # Custom UI Dropdown Logic
-            # 1. Click the trigger button
-            print("Clicking Project dropdown...")
-            project_trigger = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.ID, "internship_id"))
-            )
-            project_trigger.click()
-
-            # 2. Wait for option to appear and click it
-            print("Waiting for 'Cirruslabs' option...")
-            # Look for div/span with text inside the dropdown portal
-            cirrus_option = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Cirruslabs')] | //span[contains(text(), 'Cirruslabs')]"))
-            )
-            cirrus_option.click()
-            print("Selected 'Cirrus labs'.")
-
-        except Exception as e:
-            print(f"Could not select 'Cirrus labs': {e}")
-            print("Please select Project manually.")
-
-        # 6. Select Date from Diary Entry
+        # 5. Select Date from Diary Entry
         print("Attempting to select date from diary entry...")
         try:
             # Parse the date from the diary entry itself
@@ -236,63 +220,84 @@ def main():
             # 2. Navigate to the correct month/year if needed
             target_year = entry_date.year
             target_month = entry_date.month
-            for _ in range(24):  # max 24 navigation attempts
+            print(f"Targeting calendar for: {target_year}-{target_month}")
+            for attempt in range(24):  # max 24 navigation attempts
                 try:
-                    cal_header = driver.find_element(
-                        By.CSS_SELECTOR,
-                        "div[role='dialog'] button[name='view_date'], "
-                        "[data-slot='caption-label'], "
-                        ".rdp-caption_label"
+                    cal_header = WebDriverWait(driver, 2).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, "div[role='dialog'] button[name='view_date'], [data-slot='calendar-header'] span, [data-slot='caption-label'], .rdp-caption_label, .react-calendar__navigation__label__labelText"))
                     )
                     header_text = cal_header.text.strip()
                 except Exception:
                     header_text = ""
 
+                print(f"Calendar header detected: '{header_text}'")
                 current_cal_date = None
+                
+                # Attempt to parse common formats: "April 2026", "Apr 2026", "Apr"
                 try:
                     current_cal_date = datetime.strptime(header_text, "%B %Y").date().replace(day=1)
                 except ValueError:
-                    pass
+                    try:
+                        current_cal_date = datetime.strptime(header_text, "%b %Y").date().replace(day=1)
+                    except ValueError:
+                        try:
+                            # Just month name, assume current year
+                            current_cal_date = datetime.strptime(header_text, "%b").date().replace(year=datetime.now().year, day=1)
+                        except ValueError:
+                            pass
 
                 if current_cal_date and (current_cal_date.year, current_cal_date.month) == (target_year, target_month):
+                    print("Reached target month.")
                     break
 
                 if current_cal_date:
                     if (target_year, target_month) < (current_cal_date.year, current_cal_date.month):
+                        print("Navigating to previous month...")
                         try:
                             prev_btn = driver.find_element(
                                 By.CSS_SELECTOR,
-                                "button[name='previous-month'], "
-                                "button[aria-label='Go to previous month'], "
-                                ".rdp-nav_button_previous"
+                                "button[name='previous-month'], button[aria-label='Go to previous month'], .rdp-nav_button_previous, .react-calendar__navigation__arrow.react-calendar__navigation__prev2-button, button[data-slot='calendar-prev']"
                             )
                             prev_btn.click()
-                        except Exception:
+                        except Exception as e:
+                            print(f"Could not click previous month: {e}")
                             break
                     else:
+                        print("Navigating to next month...")
                         try:
                             next_btn = driver.find_element(
                                 By.CSS_SELECTOR,
-                                "button[name='next-month'], "
-                                "button[aria-label='Go to next month'], "
-                                ".rdp-nav_button_next"
+                                "button[name='next-month'], button[aria-label='Go to next month'], .rdp-nav_button_next, .react-calendar__navigation__arrow.react-calendar__navigation__next2-button, button[data-slot='calendar-next']"
                             )
                             next_btn.click()
-                        except Exception:
+                        except Exception as e:
+                            print(f"Could not click next month: {e}")
                             break
                 else:
-                    break
-                time.sleep(0.3)
+                    if attempt > 2:
+                        print("Failed to detect or parse calendar header after multiple attempts. Giving up on month navigation.")
+                        break
+                time.sleep(0.5)
 
             # 3. Click the correct day
             day_num = str(entry_date.day)
             print(f"Selecting day '{day_num}' in calendar...")
             try:
-                day_btn = WebDriverWait(driver, 3).until(
-                    EC.element_to_be_clickable((By.XPATH, f"//div[@role='dialog']//button[text()='{day_num}'] | //button[text()='{day_num}' and @role='gridcell']"))
-                )
-                day_btn.click()
-                print(f"Clicked day '{day_num}'.")
+                # Find all buttons matching the day
+                day_btns = driver.find_elements(By.XPATH, f"//div[@role='dialog']//button[text()='{day_num}'] | //button[text()='{day_num}' and @role='gridcell']")
+                clicked = False
+                for btn in day_btns:
+                    # Ignore days that are outside the current month (usually have 'outside' or 'muted' in class)
+                    class_name = btn.get_attribute("class") or ""
+                    if "outside" not in class_name and "muted" not in class_name:
+                        btn.click()
+                        print(f"Clicked day '{day_num}'.")
+                        clicked = True
+                        break
+                if not clicked and day_btns:
+                    # Fallback to just clicking the last one if we couldn't filter out the outside ones
+                    day_btns[-1].click()
+                    print(f"Clicked fallback day '{day_num}'.")
             except Exception as e:
                 print(f"Could not click day '{day_num}' in calendar: {e}")
                 print("Trying method 2: aria-current='date'...")
@@ -306,6 +311,31 @@ def main():
 
         except Exception as e:
             print(f"Could not interact with Date picker: {e}. Please verify manually.")
+
+        # 6. Select 'Cirrus labs' (Project Selection)
+        print("Attempting to select 'Cirrus labs'...")
+        try:
+            # Custom UI Dropdown Logic
+            # 1. Click the trigger button
+            print("Waiting for page load and clicking Project dropdown...")
+            project_trigger = WebDriverWait(driver, 60).until(
+                EC.element_to_be_clickable((By.ID, "internship_id"))
+            )
+            project_trigger.click()
+
+            # 2. Wait for option to appear and click it
+            print("Waiting for 'Cirruslabs' option...")
+            time.sleep(1) # Allow dropdown animation/rendering
+            # Look for div/span with text inside the dropdown portal
+            cirrus_option = WebDriverWait(driver, 30).until(
+                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Cirruslabs')] | //span[contains(text(), 'Cirruslabs')]"))
+            )
+            cirrus_option.click()
+            print("Selected 'Cirrus labs'.")
+
+        except Exception as e:
+            print(f"Could not select 'Cirrus labs': {e}")
+            print("Please select Project manually.")
 
         # --- IMPORTANT: CLICK CONTINUE ---
         print("Attempting to click 'Continue'...")
@@ -324,7 +354,7 @@ def main():
 
         # 7. Fill 'Work Done' (name="description")
         print("Waiting for 'Work Done' field (name='description')...")
-        description_field = WebDriverWait(driver, 15).until(
+        description_field = WebDriverWait(driver, 60).until(
             EC.presence_of_element_located((By.NAME, "description"))
         )
         description_field.clear()
@@ -375,7 +405,8 @@ def main():
             print(f"Selecting skills from dropdown: {skills_list}")
             try:
                 # Find the react-select container for skills
-                react_select = WebDriverWait(driver, 5).until(
+                print("Waiting for skills dropdown to load...")
+                react_select = WebDriverWait(driver, 30).until(
                     EC.presence_of_element_located((
                         By.CSS_SELECTOR,
                         "div[class*='react-select__control']"
@@ -401,7 +432,7 @@ def main():
                         time.sleep(0.8)
 
                         # Click the matching option from the dropdown menu
-                        option = WebDriverWait(driver, 3).until(
+                        option = WebDriverWait(driver, 10).until(
                             EC.element_to_be_clickable((
                                 By.CSS_SELECTOR,
                                 "div[class*='react-select__option']"
