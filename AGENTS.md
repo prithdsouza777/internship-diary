@@ -1,8 +1,8 @@
 # Internship Diary System - Codex Orchestrator
 
-You are the Codex orchestrator for the Internship Diary System. Your job is to run the diary workflow end to end while keeping each responsibility separated through the `.agent/` playbooks.
+You are the Codex orchestrator for the Internship Diary System. Your job is to run the diary workflow end to end by delegating to the individual Codex subagents defined in `.agents/`.
 
-The Gemini workflow in `GEMINI.md` and `.gemini/` is the newest parallel implementation. This file is the Codex-optimized version of that workflow. Do not edit `.gemini/`, `.claude/`, scripts, diary entries, or context files unless the user explicitly asks or the diary pipeline requires it.
+The Gemini workflow in `GEMINI.md` and `.gemini/` is the newest parallel implementation. This file is the Codex-optimized counterpart. Do not edit `.gemini/`, `.claude/`, scripts, diary entries, or context files unless the user explicitly asks or the diary pipeline requires it.
 
 ## Project Summary
 
@@ -10,7 +10,8 @@ The Gemini workflow in `GEMINI.md` and `.gemini/` is the newest parallel impleme
 - **Diary file:** `Internship_Diary.md` is the source of truth.
 - **Context files:** `context/personal_context.md` is the hub; `context/projects/<active>.md` stores project state.
 - **Automation:** `auto_fill.py` fills the VTU portal; `diary_manager.py` parses diary entries.
-- **Codex playbooks:** `.agent/*.md` defines the role-specific instructions for this orchestrator.
+- **Codex subagents:** `.agents/*.md` contains the individual subagent definitions Codex should use.
+- **Legacy/universal prompts:** `.agent/*.md` may exist for other tools, but Codex should prefer `.agents/*.md`.
 
 ## Git Commit Convention
 
@@ -22,23 +23,23 @@ When committing repository work, always commit by feature set:
 
 Only bundle unrelated changes into a single commit if the user explicitly asks.
 
-## Codex Execution Rules
+## Codex Delegation Rules
 
-- Treat `.agent/` files as role playbooks. If the Codex runtime permits safe delegation, use the matching playbook. Otherwise execute the playbook locally and report each role's result separately.
-- Use parallel tool calls for independent reads and post-write tasks when available.
+- Use the matching `.agents/*.md` subagent for each role whenever delegation is available.
+- If the runtime cannot spawn a named subagent directly, load the matching `.agents/*.md` definition and execute that role locally while preserving the same boundaries.
+- Use parallel subagents/tool calls for independent reads and post-write tasks.
 - Do not invent Gemini-only tools such as `invoke_agent` or `ask_user`. In Codex, ask the user directly when an approval gate is required.
 - Keep `Internship_Diary.md` canonical. Obsidian and VTU are downstream consumers.
-- The user mentioned `.agents`, but this repo uses `.agent/` as the Codex/universal playbook directory.
 
-## Sub-Agent Registry
+## Codex Subagent Registry
 
-| Role | Playbook | Purpose |
+| Subagent | Definition | Purpose |
 |---|---|---|
-| Diary Writer | `.agent/diary-writer.md` | Draft, format, and append approved diary entries |
-| Git Push | `.agent/git-push.md` | Commit and push only `Internship_Diary.md` after diary updates |
-| Obsidian Sync | `.agent/obsidian-sync.md` | Sync approved entries to the Obsidian vault |
-| Context Manager | `.agent/context-manager.md` | Update the active project context only when meaningful project state changes |
-| Auto-Fill | `.agent/auto-fill.md` | Run `auto_fill.py` to fill the VTU portal form |
+| `diary-writer` | `.agents/diary-writer.md` | Draft, format, and append approved diary entries |
+| `git-push` | `.agents/git-push.md` | Commit and push only `Internship_Diary.md` after diary updates |
+| `obsidian-sync` | `.agents/obsidian-sync.md` | Sync approved entries to the Obsidian vault |
+| `context-manager` | `.agents/context-manager.md` | Update active project context only when meaningful project state changes |
+| `auto-fill` | `.agents/auto-fill.md` | Run `auto_fill.py` to fill the VTU portal form |
 
 ## Trigger Rule
 
@@ -60,7 +61,7 @@ Even a single short sentence like "worked on API integration" triggers the workf
 Pipeline:
 
 ```text
-Context read -> Diary draft -> User approval -> Append -> Post-write tasks -> Report
+Context read -> diary-writer draft -> user approval -> append -> post-write subagents -> report
 ```
 
 The approval gate is intentional. It prevents accidental commits, vault syncs, and VTU form fills when the generated entry needs correction.
@@ -78,9 +79,9 @@ Step 1b: Read these in parallel after the active project path is known.
 - Active project file from Step 1a: tech stack, milestones, current focus, blockers.
 - Last roughly 50 lines of `Internship_Diary.md`: last 2 entries for continuity.
 
-### Phase 2 - Draft Diary Entry
+### Phase 2 - Invoke `diary-writer`
 
-Use `.agent/diary-writer.md` to generate a proposed entry. Pass all of this context:
+Delegate to `.agents/diary-writer.md` with:
 
 1. User's raw notes exactly as typed
 2. Full contents of `context/personal_context.md`
@@ -91,7 +92,7 @@ Use `.agent/diary-writer.md` to generate a proposed entry. Pass all of this cont
 
 Important:
 
-- Do not append yet during the first draft.
+- First invocation is draft-only.
 - Display the formatted diary entry to the user immediately.
 - Extract the skills from `---VTU_SKILLS---`; these are for VTU auto-fill only.
 - Ask one concise approval question before continuing.
@@ -106,48 +107,47 @@ If the user requests edits, revise the draft and ask again. Do not run Phase 3 u
 
 ### Phase 2b - Append Approved Entry
 
-After approval:
+After approval, delegate back to `diary-writer` in approved append mode.
 
 - Append the approved entry to `C:\Users\prith\Downloads\Internship Project\Internship_Diary.md`.
 - Add exactly one blank line before the new entry if the file already has content.
 - Do not alter previous entries.
 - Avoid duplicate append: if the same date header and entry body already exist, report that it is already appended and continue with downstream tasks only if the user approved that exact entry.
+- Never write the `---VTU_SKILLS---` block into `Internship_Diary.md`.
 
-The `---VTU_SKILLS---` block is metadata and must not be written into `Internship_Diary.md`.
+### Phase 3 - Post-Write Subagents
 
-### Phase 3 - Post-Write Tasks
+Run all four subagents in parallel when the runtime supports it. They depend only on the approved entry being appended.
 
-Run all four tasks in parallel when the runtime supports it. They depend only on the approved entry being appended.
+#### 3a. `git-push`
 
-#### 3a. Git Push
-
-Use `.agent/git-push.md`.
+Use `.agents/git-push.md`.
 
 - Stage only `Internship_Diary.md`.
 - Commit message is exactly the diary date header text without `##`, for example `Monday, February 16th, 2026`.
 - Push to `origin main`.
 - Never stage context files, agent files, scripts, `AGENTS.md`, `GEMINI.md`, or unrelated edits as part of the diary push.
 
-#### 3b. Obsidian Sync
+#### 3b. `obsidian-sync`
 
-Use `.agent/obsidian-sync.md`.
+Use `.agents/obsidian-sync.md`.
 
 - Target file is `Internship Diary.md` in the Obsidian vault.
 - Read the vault file when the tool is available and skip if the date header already exists.
 - Convert the approved entry to the vault callout format before appending.
 - Do not modify local `Internship_Diary.md`.
 
-#### 3c. Context Manager
+#### 3c. `context-manager`
 
-Use `.agent/context-manager.md`.
+Use `.agents/context-manager.md`.
 
 - Compare the approved diary entry against the active project file.
 - Update only if there are milestone completions, new milestones, tech stack changes, focus shifts, or blocker updates.
 - Report `no changes` if the diary entry is routine work within the current focus.
 
-#### 3d. Auto-Fill VTU Portal
+#### 3d. `auto-fill`
 
-Use `.agent/auto-fill.md`.
+Use `.agents/auto-fill.md`.
 
 - Run from the repo root:
 
@@ -174,13 +174,13 @@ After Phase 3 completes, report:
 
 ### "sync to obsidian" / "push to vault"
 
-- Use `.agent/obsidian-sync.md`.
+- Use `.agents/obsidian-sync.md`.
 - Sync the provided entry text, or the latest diary entry if no text is provided.
 - Deduplicate by date header before appending.
 
 ### "auto fill" / "fill form" / "submit diary"
 
-- Use `.agent/auto-fill.md`.
+- Use `.agents/auto-fill.md`.
 - Default to the latest diary entry.
 - If the user specifies a past date, pass `--date "<substring>"` to `auto_fill.py`.
 - The date substring is matched case-insensitively against diary entry headers.
@@ -196,25 +196,26 @@ After Phase 3 completes, report:
 
 ### "update context" / milestone updates
 
-- Use `.agent/context-manager.md`.
+- Use `.agents/context-manager.md`.
 - If context changes are made, commit them by feature set under the Git Commit Convention.
-- Do not use the diary-only git-push playbook for non-diary context commits.
+- Do not use the diary-only git-push subagent for non-diary context commits.
 
 ### "push" / "git push" / "commit"
 
-- If the user is asking about diary pipeline output, use `.agent/git-push.md`.
+- If the user is asking about diary pipeline output, use `.agents/git-push.md`.
 - If the user is asking to commit general repo changes, use the Git Commit Convention above and stage only the appropriate feature-set files.
 
 ## File Structure
 
 ```text
 Internship Project/
-+-- .agent/                          # Codex/universal role playbooks
++-- .agents/                         # Codex individual subagents
 |   +-- diary-writer.md
 |   +-- git-push.md
 |   +-- obsidian-sync.md
 |   +-- context-manager.md
 |   +-- auto-fill.md
++-- .agent/                          # Legacy/universal prompts for other tools
 +-- .claude/                         # Claude parallel system
 |   +-- agents/
 +-- .gemini/                         # Gemini parallel system
@@ -238,9 +239,9 @@ Internship Project/
 
 1. Single-line work updates still trigger the diary workflow.
 2. Do not ask the user to elaborate on sparse diary notes.
-3. Draft first, get approval, append once, then run downstream tasks.
-4. Diary Writer must finish before any post-write task starts.
-5. Run independent post-write tasks in parallel when available.
+3. Draft first, get approval, append once, then run downstream subagents.
+4. Diary Writer must finish before any post-write subagent starts.
+5. Run independent post-write subagents in parallel when available.
 6. Diary git pushes stage only `Internship_Diary.md`.
 7. Auto-sync to Obsidian is mandatory after an approved diary append.
 8. Auto-fill is mandatory after an approved diary append.
