@@ -10,10 +10,10 @@
 Python 3.11, FastAPI, async httpx, Pydantic v2, MongoDB + Motor (async), Google Gemini 3 Flash Preview (google-genai SDK >=1.69.0), Server-Sent Events (SSE), Gemini Live (WebSocket — real-time bidirectional audio), React 19, TypeScript ~6.0, Vite 8, Tailwind CSS v4, Zustand v5, TanStack Query v5, React Router v7, MSAL Browser (Azure AD frontend auth), @dnd-kit (drag-and-drop), python-jose (JWT validation via JWKS), cryptography (AES-256-GCM per-user credential encryption), SlowAPI (rate limiting), APScheduler (AsyncIOScheduler — per-board hourly dispatcher), MS Graph API (email reports), Docker Compose, Google Cloud Run, Jira REST API, Azure DevOps REST API
 
 ## Current Focus / Active Sprint
-**v1 Complete — Phase 2–4 Planned**
-All core features, voice, kanban DnD, employee portal, analytics, and per-board scheduling are shipped. Next up:
-- **Phase 2 (Intelligence):** Confluence integration, multi-agent architecture, glossary tool, deep research mode
-- **Phase 3 (Automation):** Jira webhook engine, additional write tools (bulk update, link issues, move to sprint), custom health dimensions
+**Phase 2 & Final Handover Preparations**
+Currently finalizing the multi-agent architecture, OAuth 2.0 per-user authentication, and production deployment configurations. Preparing for project handover in the final week.
+- **Phase 2 (Intelligence):** Confluence integration, multi-agent architecture, glossary tool completed. Deep research mode pending.
+- **Phase 3 (Automation):** Jira webhook engine architecture designed.
 - **Phase 4 (Ecosystem):** Chrome extension, Jira Forge app, Slack bot, knowledge graph
 
 ## Key Milestones & Status
@@ -82,10 +82,10 @@ All core features, voice, kanban DnD, employee portal, analytics, and per-board 
 - [x] Google Cloud Run deployment
 - [x] MongoDB-backed conversation persistence (TTL 1hr) and pending actions (TTL 5min)
 
-### Phase 2 — Intelligence (Planned)
-- [ ] Confluence integration — search and read Confluence pages from chat
-- [ ] Multi-agent architecture (Backlog Groomer, Sprint Planner, Tech Lead, Onboarding Buddy)
-- [ ] Glossary tool — company-specific terminology lookup
+### Phase 2 — Intelligence (In Progress)
+- [x] Confluence integration — search and read Confluence pages from chat
+- [x] Multi-agent architecture (Backlog Groomer, Sprint Planner, Tech Lead, Onboarding Buddy)
+- [x] Glossary tool — company-specific terminology lookup
 - [ ] Deep research mode — 25-step analysis for structured reports
 
 ### Phase 3 — Automation (Planned)
