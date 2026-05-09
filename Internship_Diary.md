@@ -1,5 +1,22 @@
 # Internship Diary — AI Scrum Project at Cirruslabs
 
+## Monday, February 2nd, 2026
+
+### What I worked on?
+- **Project Introduction:** Onboarded to the Teams Sprint Bot project.
+- **System Overview:** Learned that the system is a Call Automation System for Microsoft Teams designed to manage tasks.
+- **Key Feature Analysis:** Understood the core requirement of integrating previous task history into the automation flow.
+
+### Learnings / Outcomes
+- Gained a clear understanding of the Teams Sprint Bot system architecture and its integration with Microsoft Teams.
+- Recognized the importance of historical context for effective task management automation.
+
+### Blockers / Risks
+- *None reported today.*
+
+### Skills Used
+Project Onboarding, System Analysis, Microsoft Teams Ecosystem Awareness
+
 ## Tuesday, February 3rd, 2026
 
 ### What I worked on?
